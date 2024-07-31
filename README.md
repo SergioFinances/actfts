@@ -6,20 +6,28 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of actfts is to group all packcage related to time series
-analysis
+The goal of actfts is to …
 
 ## Installation
 
-You can install the development version of actfts like so:
+You can install the development version of actfts from:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+install.packages("actfts")
+devtools::install_github("SergioFinances/actfts")
 ```
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(actfts)
+#> Registered S3 method overwritten by 'quantmod':
+#>   method            from
+#>   as.zoo.data.frame zoo
+## basic example code
+```
 
 What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
