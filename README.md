@@ -37,7 +37,9 @@ devtools::install_github("SergioFinances/actfts")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to use this actfts:
+
+- example one
 
 ``` r
 library(actfts)
