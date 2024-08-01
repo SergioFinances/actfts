@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # actfts: Tools for Analysis of Time Series
 
 <!-- badges: start -->
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The **actfts package** offers a flexible approach to time series analysis, allowing users to focus on calculating Autocorrelation (ACF) and Partial Autocorrelation (PACF) functions and stationarity tests. It generates interactive plots to visualize these results, providing a dynamic data view. The process begins by validating and transforming the input data series based on the specified difference type (levels, first-order, second-order, or third-order differences). It then calculates the ACF and PACF functions up to a specified number of lags and conducts Box-Pierce and Ljung-Box tests to evaluate the independence of observations at different lags.
