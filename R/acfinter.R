@@ -21,11 +21,11 @@
 #' print(result)
 #'
 #' @importFrom stats acf pacf Box.test na.omit qnorm is.ts setNames
-#' @import tseries
-#' @import reactable
-#' @import openxlsx
-#' @import xts
-#' @import plotly
+#' @importFrom tseries adf.test kpss.test pp.test
+#' @importFrom reactable reactable reactableTheme
+#' @importFrom openxlsx createWorkbook addWorksheet writeData saveWorkbook
+#' @importFrom xts xts
+#' @importFrom plotly plot_ly layout add_trace subplot
 #'
 #' @export
 acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactive = NULL,

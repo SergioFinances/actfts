@@ -35,9 +35,42 @@ devtools::install_github("SergioFinances/actfts")
 
 This is a basic example which shows you how to use this actfts:
 
-* example one
-```{r example}
+```{r}
 library(actfts)
 data <- actfts::GDPEEUU
-## basic example code
 ```
+
+
+* **Example 1**
+It shows the ACF, PAC, and Pv Ljung plots and a list of two elements, the ACF-PACF Test and the Stationary test, with the default arguments.
+```{r example 1}
+result <- actfts::acfinter(data)
+print(result)
+```
+
+* **Example 2**
+Shows the ACF, PAC, and Pv Ljung plots and a list with two elements, ACF-PACF Test and Stationary test with 25 lags, method of moviles average to calculate the confidence interval and confidential interval equals to 98%.
+```{r example 2}
+result <- actfts::acfinter(data, lag = 15, ci.method = "ma", ci = 0.98)
+print(result)
+```
+
+* **Example 3**
+The time series transformation's first difference shows the ACF, PAC, and Pv Ljung plots and a list with two elements: the ACF-PACF Test and the Stationary Test.
+```{r example 3}
+result <- actfts::acfinter(data, lag = 15, delta = "diff1")
+print(result)
+```
+
+* **Example 4**
+When we use the interactive argument with a value equal to "stattable", the function interactively shows the ACF-PACF Test, the Stationary Test, and the plot. Additionally, with the argument download equals true, the function saves the results in an xlsx format.
+```{r example 4}
+result <- actfts::acfinter(data, interactive = "stattable")
+```
+
+## References
+
+* U.S. Bureau of Economic Analysis, Personal Consumption Expenditures (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCEC.
+* U.S. Bureau of Economic Analysis, Gross Domestic Product (GDP), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/GDP.
+* U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/DPI.
+
