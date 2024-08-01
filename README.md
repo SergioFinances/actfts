@@ -42,9 +42,6 @@ This is a basic example which shows you how to use this actfts:
 
 ``` r
 library(actfts)
-#> Registered S3 method overwritten by 'quantmod':
-#>   method            from
-#>   as.zoo.data.frame zoo
 data <- actfts::GDPEEUU
 ```
 
@@ -204,10 +201,6 @@ print(result)
   the Stationary Test, and the plot. Additionally, with the argument
   download equals true, the function saves the results in an xlsx
   format.
-
-``` r
-result <- actfts::acfinter(data, interactive = "stattable")
-```
 
 ## References
 

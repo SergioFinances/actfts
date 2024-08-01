@@ -35,7 +35,7 @@ devtools::install_github("SergioFinances/actfts")
 
 This is a basic example which shows you how to use this actfts:
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(actfts)
 data <- actfts::GDPEEUU
 ```
@@ -64,8 +64,8 @@ print(result)
 
 * **Example 4**
 When we use the interactive argument with a value equal to "stattable", the function interactively shows the ACF-PACF Test, the Stationary Test, and the plot. Additionally, with the argument download equals true, the function saves the results in an xlsx format.
-```{r example 4}
-result <- actfts::acfinter(data, interactive = "stattable")
+```{r example 4, eval=FALSE, include=FALSE}
+result <- actfts::acfinter(data, interactive = "stattable", download = T)
 ```
 
 ## References
