@@ -2,8 +2,9 @@
 
 usethis::use_data(PCECEEUU, overwrite = TRUE)
 
-if (!require(xts)) install.packages("zoo", dependencies = TRUE)
-if (!require(xts)) install.packages("quantmod", dependencies = TRUE)
+if (!require(conflicted)) install.packages("conflicted", dependencies = TRUE)
+if (!require(zoo)) install.packages("zoo", dependencies = TRUE)
+if (!require(quantmod)) install.packages("quantmod", dependencies = TRUE)
 if (!require(xts)) install.packages("xts", dependencies = TRUE)
 if (!require(httr)) install.packages("httr", dependencies = TRUE)
 if (!require(readxl)) install.packages("readxl", dependencies = TRUE)
