@@ -20,12 +20,12 @@
 #' result <- actfts::acfinter(data, lag = 20, ci.method = "white", interactive = "acftable")
 #' print(result)
 #'
-#' @importFrom xts xts
+#' @import xts
+#' @import tseries
+#' @import reactable
+#' @import openxlsx
+#' @import plotly
 #' @importFrom stats acf pacf Box.test na.omit qnorm is.ts setNames
-#' @importFrom tseries adf.test kpss.test pp.test
-#' @importFrom reactable reactable reactableTheme
-#' @importFrom openxlsx createWorkbook addWorksheet writeData saveWorkbook
-#' @importFrom plotly plot_ly layout add_trace subplot
 #'
 #' @export
 acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactive = NULL,
