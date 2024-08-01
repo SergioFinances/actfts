@@ -39,6 +39,7 @@ This is a basic example which shows you how to use this actfts:
 
 ```{r message=FALSE, warning=FALSE}
 library(actfts)
+options(scipen = 999)
 data <- actfts::GDPEEUU
 ```
 
@@ -46,9 +47,11 @@ data <- actfts::GDPEEUU
 * **Example 1**
 It shows the ACF, PAC, and Pv Ljung plots and a list of two elements, the ACF-PACF Test and the Stationary test, with the default arguments.
 ```{r example 1}
-result <- actfts::acfinter(data)
+result <- actfts::acfinter(data, lag = 15)
 print(result)
 ```
+
+<img src="man/figures/README-plot_example_1.png">
 
 * **Example 2**
 Shows the ACF, PAC, and Pv Ljung plots and a list with two elements, ACF-PACF Test and Stationary test with 25 lags, method of moviles average to calculate the confidence interval and confidential interval equals to 98%.

@@ -131,7 +131,8 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		color = I("slategray"),
 		showlegend = FALSE
 	) %>%
-		plotly::layout(bargap = 0.7)
+		plotly::layout(bargap = 0.7,
+					xaxis = list(range = c(1,lag)))
 	fig1 <- fig1 %>% plotly::add_trace(saveci1,
 								y = saveci1,
 								type = 'scatter',
@@ -153,7 +154,8 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		color = I("dimgrey"),
 		showlegend = FALSE
 	) %>%
-		plotly::layout(bargap = 0.7)
+		plotly::layout(bargap = 0.7,
+					xaxis = list(range = c(1,lag)))
 	fig2 <- fig2 %>% plotly::add_trace(saveci2,
 								y = saveci2,
 								type = 'scatter',
@@ -182,8 +184,8 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		color = I("lightslategrey"),
 		showlegend = FALSE
 	) %>%
-		plotly::layout(shapes = hline(0.05))
-
+		plotly::layout(shapes = hline(0.05),
+				xaxis = list(range = c(1,lag)))
 	fig <- plotly::subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 		plotly::layout(
 			xaxis = list(
