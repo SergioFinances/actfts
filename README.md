@@ -19,12 +19,13 @@ of observations at different lags.
 
 Additionally, the function performs stationarity tests, including ADF,
 KPSS (level and trend), and PP tests, organizing the results into
-tables. It generates interactive plots for the ACF, PACF, and Ljung-Box
-p-values, displaying confidence lines calculated according to the
-specified method. The function saves the results to a TIFF file and an
-Excel spreadsheet if the download option is enabled. In interactive
-mode, the function displays tables with the ACF-PACF and stationarity
-test results.
+tables. It also performs Box and Cox variance stabilization tests. It
+generates interactive plots for the ACF, PACF, and Ljung-Box p-values,
+displaying confidence lines calculated according to the specified
+method. The function saves the results to a TIFF file and an Excel
+spreadsheet if the download option is enabled. In interactive mode, the
+function displays tables with the ACF-PACF and stationarity test
+results.
 
 ## Installation
 
@@ -46,5 +47,6 @@ library(actfts)
 #> Registered S3 method overwritten by 'quantmod':
 #>   method            from
 #>   as.zoo.data.frame zoo
+data <- actfts::GDPEEUU
 ## basic example code
 ```
