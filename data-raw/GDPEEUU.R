@@ -2,10 +2,14 @@
 
 usethis::use_data(GDPEEUU, overwrite = TRUE)
 
+if (!require(xts)) install.packages("zoo", dependencies = TRUE)
+if (!require(xts)) install.packages("quantmod", dependencies = TRUE)
 if (!require(xts)) install.packages("xts", dependencies = TRUE)
 if (!require(httr)) install.packages("httr", dependencies = TRUE)
 if (!require(readxl)) install.packages("readxl", dependencies = TRUE)
 
+library(zoo)
+library(quantmod)
 library(xts)
 library(httr)
 library(readxl)
