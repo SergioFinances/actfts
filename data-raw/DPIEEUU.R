@@ -9,13 +9,12 @@ if (!require(xts)) install.packages("xts", dependencies = TRUE)
 if (!require(httr)) install.packages("httr", dependencies = TRUE)
 if (!require(readxl)) install.packages("readxl", dependencies = TRUE)
 
-library(xts)
-library(httr)
-library(readxl)
-
+suppressPackageStartupMessages(library(conflicted))
 suppressPackageStartupMessages(library(zoo))
 suppressPackageStartupMessages(library(quantmod))
-library(conflicted)
+suppressPackageStartupMessages(library(xts))
+suppressPackageStartupMessages(library(httr))
+suppressPackageStartupMessages(library(readxl))
 
 conflict_prefer("as.zoo.data.frame", "zoo")
 
