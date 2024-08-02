@@ -87,13 +87,28 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 
 	statt <- stationarity_tests(data)
 
+	# Normality Tests
+	normality_tests <- function(data) {
+		swt <- suppressWarnings(stats::shapiro.test(data))
+		kst <- suppressWarnings(stats::ks.test(data,'pnorm'))
+		bc1t <- suppressWarnings(forecast::BoxCox.lambda(data, method = c("loglik")))
+		bc2t <- suppressWarnings(forecast::BoxCox.lambda(data, method = c("guerrero")))
+
+		data.frame(
+			Statistic = c(round(swt$statistic,5), round(kst$statistic,5), round(bc1t,5), round(bc2t,5)),
+			P_Value = c(round(swt$p.value,5), round(kst$p.value,5),NA, NA),
+			row.names = c("Shapiro Wilks", "Kolmogorv Smirnoff", "Box Cox", "Box Cox G")
+		)
+	}
+	normt <- normality_tests(data)
+
 	# ACF-PACF result for console
 	multi_return <- function() {
-		tlist <- list(table, t(statt))
+		tlist <- list(table, t(statt), t(normt))
 		return(tlist)
 	}
 	tablef <- multi_return()
-	tablef <- setNames(tablef, c("ACF-PACF Test", "Stationary Test"))
+	tablef <- setNames(tablef, c("ACF-PACF Test", "Stationary Test", "Normality Test"))
 
 	#--------------------plots------------------------------------------------
 	get_clim1 <- function(x, ci=0.95, ci.type="white"){
@@ -129,6 +144,7 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		type = "bar",
 		name = "acf",
 		color = I("slategray"),
+		cliponaxis = FALSE,
 		showlegend = FALSE
 	) %>%
 		plotly::layout(bargap = 0.7,
@@ -138,12 +154,14 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 								type = 'scatter',
 								mode = 'lines',
 								showlegend = FALSE,
+								cliponaxis = FALSE,
 								line = list(width = 0.8, dash = "dash", color="black"))
 	fig1 <- fig1 %>% plotly::add_trace(saveci1,
 								y = -saveci1,
 								type = 'scatter',
 								mode = 'lines',
 								showlegend = FALSE,
+								cliponaxis = FALSE,
 								line = list(width = 0.8, dash = "dash", color="black"))
 
 	fig2 <- plotly::plot_ly(
@@ -152,6 +170,7 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		type = "bar",
 		name = "pacf",
 		color = I("dimgrey"),
+		cliponaxis = FALSE,
 		showlegend = FALSE
 	) %>%
 		plotly::layout(bargap = 0.7,
@@ -161,12 +180,14 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 								type = 'scatter',
 								mode = 'lines',
 								showlegend = FALSE,
+								cliponaxis = FALSE,
 								line = list(width = 0.8, dash = "dash", color="black"))
 	fig2 <- fig2 %>% plotly::add_trace(saveci2,
 								y = -saveci2,
 								type = 'scatter',
 								mode = 'lines',
 								showlegend = FALSE,
+								cliponaxis = FALSE,
 								line = list(width = 0.8, dash = "dash", color="black", showlegend = F))
 
 	hline <- function(y = 0, color = "black") {
@@ -182,10 +203,11 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		mode = "markers",
 		name = "Pv Ljung Box",
 		color = I("lightslategrey"),
+		cliponaxis = FALSE,
 		showlegend = FALSE
 	) %>%
 		plotly::layout(shapes = hline(0.05),
-				xaxis = list(range = c(1,lag)))
+					xaxis = list(range = c(0.5,lag+0.5)))
 	fig <- plotly::subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 		plotly::layout(
 			xaxis = list(
@@ -260,22 +282,30 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		return(tablef)
 	} else if (interactive == "acftable") {
 		figt1 <- reactable::reactable(round(table, 5), minRows = 40, striped = TRUE, highlight = TRUE,
-										 pagination = FALSE, theme = reactable::reactableTheme(style = list(fontFamily =
-										 													  	"-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif")
-										 ))
+								pagination = FALSE, theme = reactable::reactableTheme(style = list(fontFamily =
+																					  	"-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif")
+								))
 
 		print(figt1)
 
 	} else if (interactive == "stattable") {
 
 		figt <- reactable::reactable(t(round(statt, 5)), striped = TRUE, highlight = TRUE,
-										pagination = FALSE, theme = reactable::reactableTheme(style = list(fontFamily =
-																							  	"-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif")
-										))
+							    pagination = FALSE, theme = reactable::reactableTheme(style = list(fontFamily =
+							    													  	"-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif")
+							    ))
+		print(figt)
+
+	} else if (interactive == "normtable") {
+
+		figt <- reactable::reactable(t(round(normt, 5)), striped = TRUE, highlight = TRUE,
+							    pagination = FALSE, theme = reactable::reactableTheme(style = list(fontFamily =
+							    													  	"-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif")
+							    ))
 		print(figt)
 	}
 
-	if (!interactive %in% c("acftable", "stattable")) {
-		stop('`interactive` must be "acftable" or "stattable"')
+	if (!interactive %in% c("acftable", "stattable", "normtable")) {
+		stop('`interactive` must be "acftable", "stattable" or "normtable"')
 	}
 }
