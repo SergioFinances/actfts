@@ -88,23 +88,37 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 	statt <- stationarity_tests(data)
 
 	# Normality Tests
-	normality_tests <- function(data) {
-		swt <- suppressWarnings(stats::shapiro.test(data))
-		kst <- suppressWarnings(stats::ks.test(data,'pnorm'))
-		bc1t <- suppressWarnings(forecast::BoxCox.lambda(data, method = c("loglik")))
-		bc2t <- suppressWarnings(forecast::BoxCox.lambda(data, method = c("guerrero")))
 
-		data.frame(
-			Statistic = c(round(swt$statistic,5), round(kst$statistic,5), round(bc1t,5), round(bc2t,5)),
-			P_Value = c(round(swt$p.value,5), round(kst$p.value,5),NA, NA),
-			row.names = c("Shapiro Wilks", "Kolmogorv Smirnoff", "Box Cox", "Box Cox G")
-		)
+	normality_tests <- function(data) {
+		# Verificar si el data contiene solo valores positivos
+		if (any(data <= 0, na.rm = TRUE)) {
+			# Si hay valores negativos o cero, no se aplica Box-Cox
+			resultados <- data.frame(
+				Statistic = c(round(stats::shapiro.test(as.vector(data))$statistic, 5), round(stats::ks.test(as.vector(data), 'pnorm')$statistic, 5)),
+				P_Value = c(round(stats::shapiro.test(as.vector(data))$p.value, 5), round(stats::ks.test(as.vector(data), 'pnorm')$p.value, 5)),
+				row.names = c("Shapiro Wilks", "Kolmogorov Smirnov")
+			)
+		} else {
+			# Si todos los valores son positivos, aplicar Box-Cox
+			bc1t <- suppressWarnings(forecast::BoxCox.lambda(data, method = "loglik"))
+			bc2t <- suppressWarnings(forecast::BoxCox.lambda(data, method = "guerrero"))
+
+			resultados <- data.frame(
+				Statistic = c(round(stats::shapiro.test(data)$statistic, 5), round(stats::ks.test(data, 'pnorm')$statistic, 5),
+						    round(bc1t, 5), round(bc2t, 5)),
+				P_Value = c(round(shapiro.test(data)$p.value, 5), round(stats::ks.test(data, 'pnorm')$p.value, 5), NA, NA),
+				row.names = c("Shapiro Wilks", "Kolmogorov Smirnov", "Box Cox", "Box Cox Guerrero")
+			)
+		}
+
+		return(resultados)
 	}
+
 	normt <- normality_tests(data)
 
 	# ACF-PACF result for console
 	multi_return <- function() {
-		tlist <- list(table, t(statt), t(normt))
+		tlist <- list(table = table, statt = statt, normt = normt)
 		return(tlist)
 	}
 	tablef <- multi_return()
@@ -238,19 +252,37 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		grDevices::tiff("acfpacf.tif", width = 6 * dpi, height = 5 * dpi, res = dpi)
 		graphics::par(mfrow = c(3, 1), bty = "n", mar = c(4, 3, 3, 2), xpd = FALSE)
 
-		bp1 <- graphics::barplot(table$acf, ylim = c(-max(saveci1) - 0.05, max(saveci1) + 0.05),
-							main = "ACF", width = 0.5, space = 3, border = "slategray", col = I("slategrey"))
-		graphics::abline(h = 0, col = "black")
-		graphics::abline(h = seq(-max(table$acf), max(table$acf), 0.4), col = 'lightgray', lty = 3)
-		graphics::lines(bp1, saveci1, col = "black", lwd = 1, lty = 2)
-		graphics::lines(bp1, -saveci1, col = "black", lwd = 1, lty = 2)
+		if (max(table$acf) <= 0.6) {
+			bp1 <- graphics::barplot(table$acf, ylim = c(-max(saveci1) - 0.05, max(saveci1) + 0.05),
+								main = "ACF", width = 0.5, space = 3, border = "slategray", col = I("slategrey"))
+			graphics::abline(h = 0, col = "black")
+			graphics::abline(h = seq(-max(table$acf), max(table$acf), 0.4), col = 'lightgray', lty = 3)
+			graphics::lines(bp1, saveci1, col = "black", lwd = 1, lty = 2)
+			graphics::lines(bp1, -saveci1, col = "black", lwd = 1, lty = 2)
+		} else {
+			bp1 <- graphics::barplot(table$acf, ylim = c(-max(table$acf) - 0.05, max(table$acf) + 0.05),
+								main = "ACF", width = 0.5, space = 3, border = "slategray", col = I("slategrey"))
+			graphics::abline(h = 0, col = "black")
+			graphics::abline(h = seq(-max(table$acf), max(table$acf), 0.4), col = 'lightgray', lty = 3)
+			graphics::lines(bp1, saveci1, col = "black", lwd = 1, lty = 2)
+			graphics::lines(bp1, -saveci1, col = "black", lwd = 1, lty = 2)
+		}
 
-		bp2 <- graphics::barplot(table$pacf, ylim = c(-max(saveci2) - 0.05, max(saveci2) + 0.05),
-							main = "PACF", width = 0.5, space = 3, border = "dimgray", col = I("dimgray"))
-		graphics::abline(h = seq(-max(table$pacf), max(table$pacf), 0.4), col = 'lightgray', lty = 3)
-		graphics::abline(h = 0, col = "black")
-		graphics::lines(bp2, saveci2, col = "black", lwd = 1, lty = 2)
-		graphics::lines(bp2, -saveci2, col = "black", lwd = 1, lty = 2)
+		if (max(table$pacf) <= 0.6) {
+			bp2 <- graphics::barplot(table$pacf, ylim = c(-max(saveci2) - 0.05, max(saveci2) + 0.05),
+								main = "PACF", width = 0.5, space = 3, border = "dimgray", col = I("dimgray"))
+			graphics::abline(h = seq(-max(table$pacf), max(table$pacf), 0.4), col = 'lightgray', lty = 3)
+			graphics::abline(h = 0, col = "black")
+			graphics::lines(bp2, saveci2, col = "black", lwd = 1, lty = 2)
+			graphics::lines(bp2, -saveci2, col = "black", lwd = 1, lty = 2)
+		} else {
+			bp2 <- graphics::barplot(table$pacf, ylim = c(-max(table$pacf) - 0.05, max(table$pacf) + 0.05),
+								main = "PACF", width = 0.5, space = 3, border = "dimgray", col = I("dimgray"))
+			graphics::abline(h = seq(-max(table$pacf), max(table$pacf), 0.4), col = 'lightgray', lty = 3)
+			graphics::abline(h = 0, col = "black")
+			graphics::lines(bp2, saveci2, col = "black", lwd = 1, lty = 2)
+			graphics::lines(bp2, -saveci2, col = "black", lwd = 1, lty = 2)
+		}
 
 		if (max(table$Pv_Ljung) <= 0.05) {
 			graphics::plot(table$Pv_Ljung, ylim = c(0, max(table$Pv_Ljung) + 0.01), main = "Pv Ljung Box",
@@ -270,9 +302,20 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		}
 
 		wb <- openxlsx::createWorkbook()
-		sh <- openxlsx::addWorksheet(wb, "Tablef")
-		openxlsx::writeData(wb, sheet = sh, x = tablef)
+		# Agregar hojas y escribir datos
+		openxlsx::addWorksheet(wb, "ACF-PACF Test")
+		openxlsx::writeData(wb, sheet = "ACF-PACF Test", x = table)
+
+		openxlsx::addWorksheet(wb, "Stationary Test")
+		openxlsx::writeData(wb, sheet = "Stationary Test", x = statt,rowNames=TRUE)
+
+		openxlsx::addWorksheet(wb, "Normality Test")
+		openxlsx::writeData(wb, sheet = "Normality Test", x = normt,rowNames=TRUE)
+
+		# Guardar el archivo Excel
 		openxlsx::saveWorkbook(wb, "table.xlsx", overwrite = TRUE)
+		#openxlsx::writeData(wb, sheet = sh, x = tablef)
+		#openxlsx::saveWorkbook(wb, "table.xlsx", overwrite = TRUE)
 	} else {
 		print(fig)
 	}
