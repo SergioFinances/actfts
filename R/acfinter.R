@@ -104,9 +104,9 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 			bc2t <- suppressWarnings(forecast::BoxCox.lambda(data, method = "guerrero"))
 
 			resultados <- data.frame(
-				Statistic = c(round(stats::shapiro.test(data)$statistic, 5), round(stats::ks.test(data, 'pnorm')$statistic, 5),
+				Statistic = c(round(stats::shapiro.test(as.vector(data))$statistic, 5), round(stats::ks.test(as.vector(data), 'pnorm')$statistic, 5),
 						    round(bc1t, 5), round(bc2t, 5)),
-				P_Value = c(round(shapiro.test(data)$p.value, 5), round(stats::ks.test(data, 'pnorm')$p.value, 5), NA, NA),
+				P_Value = c(round(shapiro.test(as.vector(data))$p.value, 5), round(stats::ks.test(as.vector(data), 'pnorm')$p.value, 5), NA, NA),
 				row.names = c("Shapiro Wilks", "Kolmogorov Smirnov", "Box Cox", "Box Cox Guerrero")
 			)
 		}
