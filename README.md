@@ -75,9 +75,18 @@ print(result)
 #> 15  15 0.8062809  0.0127308937  3703.8289      0 3820.4143        0
 #> 
 #> $`Stationary Test`
-#>                ADF KPSS-Level KPSS-Trend       PP
-#> Statistic 2.586751     4.7086   1.215522 3.431542
-#> P_Value   0.990000     0.0100   0.010000 0.990000
+#>            Statistic P_Value
+#> ADF         2.586751    0.99
+#> KPSS-Level  4.708600    0.01
+#> KPSS-Trend  1.215522    0.01
+#> PP          3.431542    0.99
+#> 
+#> $`Normality Test`
+#>                    Statistic P_Value
+#> Shapiro Wilks        0.84705       0
+#> Kolmogorov Smirnov   0.17555       0
+#> Box Cox              0.15000      NA
+#> Box Cox Guerrero    -0.00578      NA
 ```
 
 <img src="man/figures/README-plot_example_1.png">
@@ -109,10 +118,21 @@ print(result)
 #> 15  15 0.8062809  0.0127308937  3703.8289      0 3820.4143        0
 #> 
 #> $`Stationary Test`
-#>                ADF KPSS-Level KPSS-Trend       PP
-#> Statistic 2.586751     4.7086   1.215522 3.431542
-#> P_Value   0.990000     0.0100   0.010000 0.990000
+#>            Statistic P_Value
+#> ADF         2.586751    0.99
+#> KPSS-Level  4.708600    0.01
+#> KPSS-Trend  1.215522    0.01
+#> PP          3.431542    0.99
+#> 
+#> $`Normality Test`
+#>                    Statistic P_Value
+#> Shapiro Wilks        0.84705       0
+#> Kolmogorov Smirnov   0.17555       0
+#> Box Cox              0.15000      NA
+#> Box Cox Guerrero    -0.00578      NA
 ```
+
+<img src="man/figures/README-plot_example_2.png">
 
 - **Example 3** The time series transformation’s first difference shows
   the ACF, PAC, and Pv Ljung plots and a list with two elements: the
@@ -156,9 +176,16 @@ print(result)
 #> 15 0.0000000000000000000000
 #> 
 #> $`Stationary Test`
-#>                 ADF KPSS-Level KPSS-Trend        PP
-#> Statistic -5.464131   2.761664 0.19985982 -375.4593
-#> P_Value    0.010000   0.010000 0.01605257    0.0100
+#>               Statistic    P_Value
+#> ADF          -5.4641315 0.01000000
+#> KPSS-Level    2.7616640 0.01000000
+#> KPSS-Trend    0.1998598 0.01605257
+#> PP         -375.4592842 0.01000000
+#> 
+#> $`Normality Test`
+#>                    Statistic P_Value
+#> Shapiro Wilks        0.54931       0
+#> Kolmogorov Smirnov   0.27583       0
 ```
 
 - **Example 4** When we use the interactive argument with a value equal

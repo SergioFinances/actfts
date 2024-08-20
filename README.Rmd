@@ -60,6 +60,8 @@ result <- actfts::acfinter(data, lag = 15, ci.method = "ma", ci = 0.98)
 print(result)
 ```
 
+<img src="man/figures/README-plot_example_2.png">
+
 * **Example 3**
 The time series transformation's first difference shows the ACF, PAC, and Pv Ljung plots and a list with two elements: the ACF-PACF Test and the Stationary Test.
 ```{r example 3}

@@ -25,7 +25,8 @@
 #' @import reactable
 #' @import openxlsx
 #' @import plotly
-#' @importFrom stats acf pacf Box.test na.omit qnorm is.ts setNames
+#' @importFrom forecast BoxCox.lambda
+#' @importFrom stats acf pacf Box.test na.omit qnorm is.ts setNames sd shapiro.test
 #'
 #' @export
 acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactive = NULL,
@@ -94,8 +95,8 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		if (any(data <= 0, na.rm = TRUE)) {
 			# Si hay valores negativos o cero, no se aplica Box-Cox
 			resultados <- data.frame(
-				Statistic = c(round(stats::shapiro.test(as.vector(data))$statistic, 5), round(stats::ks.test(as.vector(data), 'pnorm')$statistic, 5)),
-				P_Value = c(round(stats::shapiro.test(as.vector(data))$p.value, 5), round(stats::ks.test(as.vector(data), 'pnorm')$p.value, 5)),
+				Statistic = c(round(stats::shapiro.test(as.vector(data))$statistic, 5), suppressWarnings(round(stats::ks.test(as.vector(data), 'pnorm',mean(data), sd(data))$statistic, 5))),
+				P_Value = c(round(stats::shapiro.test(as.vector(data))$p.value, 5), suppressWarnings(round(stats::ks.test(as.vector(data), 'pnorm',mean(data), sd(data))$p.value, 5))),
 				row.names = c("Shapiro Wilks", "Kolmogorov Smirnov")
 			)
 		} else {
@@ -104,9 +105,9 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 			bc2t <- suppressWarnings(forecast::BoxCox.lambda(data, method = "guerrero"))
 
 			resultados <- data.frame(
-				Statistic = c(round(stats::shapiro.test(as.vector(data))$statistic, 5), round(stats::ks.test(as.vector(data), 'pnorm')$statistic, 5),
+				Statistic = c(round(stats::shapiro.test(as.vector(data))$statistic, 5), suppressWarnings(round(stats::ks.test(as.vector(data), 'pnorm',mean(data), sd(data))$statistic, 5)),
 						    round(bc1t, 5), round(bc2t, 5)),
-				P_Value = c(round(shapiro.test(as.vector(data))$p.value, 5), round(stats::ks.test(as.vector(data), 'pnorm')$p.value, 5), NA, NA),
+				P_Value = c(round(shapiro.test(as.vector(data))$p.value, 5), suppressWarnings(round(stats::ks.test(as.vector(data), 'pnorm',mean(data), sd(data))$p.value, 5)), NA, NA),
 				row.names = c("Shapiro Wilks", "Kolmogorov Smirnov", "Box Cox", "Box Cox Guerrero")
 			)
 		}
