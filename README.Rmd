@@ -69,8 +69,11 @@ result <- actfts::acfinter(data, lag = 15, delta = "diff1")
 print(result)
 ```
 
+<img src="man/figures/README-plot_example_3.png">
+
 * **Example 4**
 When we use the interactive argument with a value equal to "stattable", the function interactively shows the ACF-PACF Test, the Stationary Test, and the plot. Additionally, with the argument download equals true, the function saves the results in an xlsx format.
+
 ```{r example 4, eval=FALSE, include=FALSE}
 result <- actfts::acfinter(data, interactive = "stattable", download = T)
 ```

@@ -188,6 +188,8 @@ print(result)
 #> Kolmogorov Smirnov   0.27583       0
 ```
 
+<img src="man/figures/README-plot_example_3.png">
+
 - **Example 4** When we use the interactive argument with a value equal
   to “stattable”, the function interactively shows the ACF-PACF Test,
   the Stationary Test, and the plot. Additionally, with the argument
