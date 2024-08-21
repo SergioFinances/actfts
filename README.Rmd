@@ -20,9 +20,7 @@ knitr::opts_chunk$set(
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The **actfts package** offers a flexible approach to time series analysis, allowing users to focus on calculating Autocorrelation (ACF) and Partial Autocorrelation (PACF) functions and stationarity tests. It generates interactive plots to visualize these results, providing a dynamic data view. The process begins by validating and transforming the input data series based on the specified difference type (levels, first-order, second-order, or third-order differences). It then calculates the ACF and PACF functions up to a specified number of lags and conducts Box-Pierce and Ljung-Box tests to evaluate the independence of observations at different lags.
-
-Additionally, the function performs stationarity tests, including ADF, KPSS (level and trend), and PP tests, organizing the results into tables. It also performs Box and Cox variance stabilization tests. It generates interactive plots for the ACF, PACF, and Ljung-Box p-values, displaying confidence lines calculated according to the specified method. The function saves the results to a TIFF file and an Excel spreadsheet if the download option is enabled. In interactive mode, the function displays tables with the ACF-PACF and stationarity test results.
+The actfts package offers a flexible approach to time series analysis by focusing on Autocorrelation (ACF), Partial Autocorrelation (PACF), and stationarity tests, generating interactive plots for dynamic data visualization. It processes input data by validating and transforming it according to specified differences. It calculates ACF and PACF up to several lags and performs Box-Pierce, Ljung-Box, ADF, KPSS, and PP tests. The function organizes results into tables, with options to save them as TIFF files or Excel spreadsheets, and interactive mode provides on-screen visualization of the ACF-PACF and stationarity test outcomes.
 
 ## Installation
 
@@ -35,52 +33,18 @@ devtools::install_github("SergioFinances/actfts")
 
 ## Example
 
-This is a basic example which shows you how to use this actfts:
+This is a basic example which shows you how to use actfts packcage:
 
 ```{r message=FALSE, warning=FALSE}
 library(actfts)
-options(scipen = 999)
 data <- actfts::GDPEEUU
-```
-
-
-* **Example 1**
-It shows the ACF, PAC, and Pv Ljung plots and a list of two elements, the ACF-PACF Test and the Stationary test, with the default arguments.
-```{r example 1}
 result <- actfts::acfinter(data, lag = 15)
 print(result)
 ```
 
 <img src="man/figures/README-plot_example_1.png">
 
-* **Example 2**
-Shows the ACF, PAC, and Pv Ljung plots and a list with two elements, ACF-PACF Test and Stationary test with 25 lags, method of moviles average to calculate the confidence interval and confidential interval equals to 98%.
-```{r example 2}
-result <- actfts::acfinter(data, lag = 15, ci.method = "ma", ci = 0.98)
-print(result)
-```
-
-<img src="man/figures/README-plot_example_2.png">
-
-* **Example 3**
-The time series transformation's first difference shows the ACF, PAC, and Pv Ljung plots and a list with two elements: the ACF-PACF Test and the Stationary Test.
-```{r example 3}
-result <- actfts::acfinter(data, lag = 15, delta = "diff1")
-print(result)
-```
-
-<img src="man/figures/README-plot_example_3.png">
-
-* **Example 4**
-When we use the interactive argument with a value equal to "stattable", the function interactively shows the ACF-PACF Test, the Stationary Test, and the plot. Additionally, with the argument download equals true, the function saves the results in an xlsx format.
-
-```{r example 4, eval=FALSE, include=FALSE}
-result <- actfts::acfinter(data, interactive = "stattable", download = T)
-```
-
 ## References
 
-* U.S. Bureau of Economic Analysis, Personal Consumption Expenditures (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCEC.
 * U.S. Bureau of Economic Analysis, Gross Domestic Product (GDP), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/GDP.
-* U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/DPI.
 
