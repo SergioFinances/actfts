@@ -34,5 +34,8 @@ Depends:
 URL: https://github.com/SergioFinances/actfts
 BugReports: https://github.com/SergioFinances/actfts/issues
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr

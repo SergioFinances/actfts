@@ -1,0 +1,76 @@
+---
+title: "actfts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{actfts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning = FALSE, message = FALSE}
+library(actfts)
+```
+
+
+
+# Motivation
+
+
+
+# Data
+
+**Gross Domestic Product**
+```{r}
+GDP_data <- actfts::GDPEEUU
+head(GDP_data)
+```
+
+**Personal Consumption Expenditures (PCEC)**
+```{r}
+PCEC_data <- actfts::PCECEEUU
+head(PCEC_data)
+```
+
+**Disposable Personal Income**
+```{r}
+DPI_data <- actfts::DPIEEUU
+head(DPI_data)
+```
+
+# Applied Examples
+
+```{r}
+result <- acfinter(GDP_data, lag = 10)
+print(result)
+```
+
+```{r}
+result <- acfinter(GDP_data, lag = 10, ci.method = "ma", ci = 0.98)
+print(result)
+```
+
+```{r}
+result <- acfinter(GDP_data, lag = 10, delta = "diff1")
+print(result)
+```
+
+# Final considerations
+
+This tool can be used for time series analysis with an xts class condition; therefore, the user can transform the series to ts if any tool conflicts with an xts series.
+
+# References
+
+* U.S. Bureau of Economic Analysis, Gross Domestic Product (GDP), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/GDP.
+* U.S. Bureau of Economic Analysis, Personal Consumption Expenditures (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCEC
+* U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI), retrieved from FRED, Federal Reserve Bank of St. Louis;https://fred.stlouisfed.org/series/DPI
+
+
+
+
