@@ -20,8 +20,6 @@ knitr::opts_chunk$set(
 library(actfts)
 ```
 
-
-
 # Motivation
 
 
@@ -197,8 +195,7 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 htmltools::tagList(fig)
 ```
 
-
-Now, the acfinter() function allows you to define the type and value of the confidence interval. It would help if you used the ci.method and ci argument; in the ci.method, you can choose constant confidence intervals with a "white" value or dynamic confidence intervals with a "ma" value. Concerning the ci argument, you can type any value. Here's an example:
+Now, the `acfinter()` function allows you to define the type and value of the confidence interval. It would help if you used the `ci.method` and `ci` argument; in the ci.method, you can choose constant confidence intervals with a "white" value or dynamic confidence intervals with a "ma" value. Concerning the ci argument, you can type any value. Here's an example:
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10, ci.method = "ma", ci = 0.98)
@@ -471,9 +468,18 @@ htmltools::tagList(fig)
 ```
 
 
+Finally, the `acfinter()` function allows you to view the result interactively. To do this, you need to use the argument interactive and type "acftable" you can view the result in another way.
+
+Additionally, you can download the results of a time series analysis. When you type "TRUE" in the download argument, the function downloads an Excel file with the numeric result and a figure in PNG format containing the ACF, PACF, and Pv Ljung Box Plots. Here's an example of the code you need to use it.
+
+```{r eval=FALSE, include=FALSE}
+result <- acfinter(GDP_data, lag = 10, interactive = "acftable", download = TRUE)
+print(result)
+```
 
 # Final considerations
 
+You can analyze time series in xts, ts, integer, and vector (numeric) formats. So, if you use a different format, the `acfinter()` function won't work. In this case, you must convert your data to any format we initially showed you.
 
 
 # References
