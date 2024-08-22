@@ -1,6 +1,8 @@
 ---
 title: "actfts"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    self_contained: false
 vignette: >
   %\VignetteIndexEntry{actfts}
   %\VignetteEngine{knitr::rmarkdown}
@@ -28,7 +30,7 @@ library(actfts)
 
 This package features a three-time series that automatically updates from the FRED database of the United States. These datasets let you practice using the package's functions. Below, we describe each of them:
 
-**Gross Domestic Product**, a comprehensive measure that quantifies the total monetary value of all goods and services produced within a country over a specific period, usually a quarter or a year. It provides a comprehensive overview of a nation's economic activity, reflecting its health and size. Economists often use GDP to compare the economic performance of different countries or regions and assess economic policies' impact.
+**Gross Domestic Product**, GDP is a comprehensive measure that quantifies the total monetary value of all goods and services produced within a country over a specific period, usually a quarter or a year. It provides a comprehensive overview of a nation's economic activity, reflecting its health and size. Economists often use GDP to compare the economic performance of different countries or regions and assess economic policies' impact.
 
 Here's a practical code that allows you to obtain GDP data.
 
@@ -55,26 +57,424 @@ DPI_data <- actfts::DPIEEUU
 head(DPI_data)
 ```
 
-# Applied Examples
+# Applied Example
+
+If you want to use actfts, perform the package installation process using `install.package("actfts")` or through CRAN and load the `library(actfts)` library. Once you install the package, use the `acfinter()` function to obtain the time series analysis. Therefore, we are going to show you the different arguments that `acfinter()` has to analyze time series:
+
+In this first example, you can use the `acfinter()` function to analyze the n lags (in this case, ten lags) of the time series, where you can see a table with five columns with values: lag, ACF, PACF, Box_Pierce, Pv_Box, Ljung_Box and Pv_Ljung, normality analysis, and stationarity analysis—finally, a plot with ACF, PACF, and Pv LJUNG BOX.
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10)
 print(result)
 ```
 
+```{r echo=FALSE, fig.align='center', message=FALSE, warning=FALSE, , fig.dim=c(7.6, 4)}
+library(dplyr)
+library(plotly)
+
+ldata <- nrow(GDP_data)
+result <- acfinter(GDP_data, lag = 10)
+table <- result$`ACF-PACF Test`
+
+get_clim1 <- function(x, ci=0.95, ci.type="white"){
+  if (!ci.type %in% c("white", "ma")) stop('`ci.type` must be "white" or "ma"')
+  clim0 <- qnorm((1 + ci)/2) / sqrt(ldata)
+  if (ci.type == "ma") {
+    clim <- clim0 * sqrt(cumsum(c(1, 2 * table$acf^2)))
+    return(clim[-length(clim)])
+  } else {
+    lineci1 <- rep(clim0, NROW(table$acf))
+    return(lineci1)
+  }
+}
+
+get_clim2 <- function(x, ci=0.95, ci.type="white"){
+  if (!ci.type %in% c("white", "ma")) stop('`ci.type` must be "white" or "ma"')
+  clim0 <- qnorm((1 + ci)/2) / sqrt(ldata)
+  if (ci.type == "ma") {
+    clim <- clim0 * sqrt(cumsum(c(1, 2 * table$pacf^2)))
+    return(clim[-length(clim)])
+  } else {
+    lineci2 <- rep(clim0, NROW(table$pacf))
+    return(lineci2)
+  }
+}
+
+saveci1 <- get_clim1(table$acf)
+saveci2 <- get_clim2(table$pacf)
+
+lag <- 10
+
+fig1 <- plot_ly(
+  x = table$lag,
+  y = table$acf,
+  type = "bar",
+  name = "acf",
+  color = I("slategray"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(bargap = 0.7,
+         xaxis = list(range = c(1,lag)))
+
+fig1 <- fig1 %>% add_trace(
+  y = saveci1,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig1 <- fig1 %>% add_trace(
+  y = -saveci1,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig2 <- plot_ly(
+  x = table$lag,
+  y = table$pacf,
+  type = "bar",
+  name = "pacf",
+  color = I("dimgrey"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(bargap = 0.7,
+         xaxis = list(range = c(1,lag)))
+
+fig2 <- fig2 %>% add_trace(
+  y = saveci2,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig2 <- fig2 %>% add_trace(
+  y = -saveci2,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+hline <- function(y = 0, color = "black") {
+  list(type = "line", x0 = 0, x1 = 1, xref = "paper", y0 = y, y1 = y,
+       line = list(color = color, dash = "dash")
+  )
+}
+
+fig3 <- plot_ly(
+  x = table$lag,
+  y = table$Pv_Ljung,
+  type = "scatter",
+  mode = "markers",
+  name = "Pv Ljung Box",
+  color = I("lightslategrey"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(shapes = hline(0.05),
+         xaxis = list(range = c(0.5,lag+0.5)))
+
+fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
+  layout(
+    xaxis = list(
+      title = "lags",
+      dtick = 1,
+      tick0 = 1,
+      tickmode = "linear"
+    )
+  )
+
+htmltools::tagList(fig)
+```
+
+
+Now, the acfinter() function allows you to define the type and value of the confidence interval. It would help if you used the ci.method and ci argument; in the ci.method, you can choose constant confidence intervals with a "white" value or dynamic confidence intervals with a "ma" value. Concerning the ci argument, you can type any value. Here's an example:
+
 ```{r}
 result <- acfinter(GDP_data, lag = 10, ci.method = "ma", ci = 0.98)
 print(result)
 ```
+
+```{r echo=FALSE, fig.align='center', message=FALSE, warning=FALSE, , fig.dim=c(7.6, 4)}
+library(dplyr)
+library(plotly)
+
+ldata <- nrow(GDP_data)
+result <- acfinter(GDP_data, lag = 10, ci.method = "ma", ci = 0.98)
+table <- result$`ACF-PACF Test`
+
+get_clim1 <- function(x, ci=0.95, ci.type="white"){
+  if (!ci.type %in% c("white", "ma")) stop('`ci.type` must be "white" or "ma"')
+  clim0 <- qnorm((1 + ci)/2) / sqrt(ldata)
+  if (ci.type == "ma") {
+    clim <- clim0 * sqrt(cumsum(c(1, 2 * table$acf^2)))
+    return(clim[-length(clim)])
+  } else {
+    lineci1 <- rep(clim0, NROW(table$acf))
+    return(lineci1)
+  }
+}
+
+get_clim2 <- function(x, ci=0.95, ci.type="white"){
+  if (!ci.type %in% c("white", "ma")) stop('`ci.type` must be "white" or "ma"')
+  clim0 <- qnorm((1 + ci)/2) / sqrt(ldata)
+  if (ci.type == "ma") {
+    clim <- clim0 * sqrt(cumsum(c(1, 2 * table$pacf^2)))
+    return(clim[-length(clim)])
+  } else {
+    lineci2 <- rep(clim0, NROW(table$pacf))
+    return(lineci2)
+  }
+}
+
+saveci1 <- get_clim1(table$acf,ci.type="ma", ci = 0.98)
+saveci2 <- get_clim2(table$pacf,ci.type="ma", ci = 0.98)
+
+lag <- 10
+
+fig1 <- plot_ly(
+  x = table$lag,
+  y = table$acf,
+  type = "bar",
+  name = "acf",
+  color = I("slategray"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(bargap = 0.7,
+         xaxis = list(range = c(1,lag)))
+
+fig1 <- fig1 %>% add_trace(
+  y = saveci1,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig1 <- fig1 %>% add_trace(
+  y = -saveci1,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig2 <- plot_ly(
+  x = table$lag,
+  y = table$pacf,
+  type = "bar",
+  name = "pacf",
+  color = I("dimgrey"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(bargap = 0.7,
+         xaxis = list(range = c(1,lag)))
+
+fig2 <- fig2 %>% add_trace(
+  y = saveci2,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig2 <- fig2 %>% add_trace(
+  y = -saveci2,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+hline <- function(y = 0, color = "black") {
+  list(type = "line", x0 = 0, x1 = 1, xref = "paper", y0 = y, y1 = y,
+       line = list(color = color, dash = "dash")
+  )
+}
+
+fig3 <- plot_ly(
+  x = table$lag,
+  y = table$Pv_Ljung,
+  type = "scatter",
+  mode = "markers",
+  name = "Pv Ljung Box",
+  color = I("lightslategrey"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(shapes = hline(0.05),
+         xaxis = list(range = c(0.5,lag+0.5)))
+
+fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
+  layout(
+    xaxis = list(
+      title = "lags",
+      dtick = 1,
+      tick0 = 1,
+      tickmode = "linear"
+    )
+  )
+
+htmltools::tagList(fig)
+```
+
+You can analyze the time series at its level and at its differences. For this, you can use the delta argument to determine what kind of difference you would like to consider for analysis. Here's an example of the analysis of GDP at its first difference.
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10, delta = "diff1")
 print(result)
 ```
 
+```{r echo=FALSE, fig.align='center', message=FALSE, warning=FALSE, , fig.dim=c(7.6, 4)}
+library(dplyr)
+library(plotly)
+
+ldata <- nrow(GDP_data)
+result <- acfinter(GDP_data, lag = 10, delta = "diff1")
+table <- result$`ACF-PACF Test`
+
+get_clim1 <- function(x, ci=0.95, ci.type="white"){
+  if (!ci.type %in% c("white", "ma")) stop('`ci.type` must be "white" or "ma"')
+  clim0 <- qnorm((1 + ci)/2) / sqrt(ldata)
+  if (ci.type == "ma") {
+    clim <- clim0 * sqrt(cumsum(c(1, 2 * table$acf^2)))
+    return(clim[-length(clim)])
+  } else {
+    lineci1 <- rep(clim0, NROW(table$acf))
+    return(lineci1)
+  }
+}
+
+get_clim2 <- function(x, ci=0.95, ci.type="white"){
+  if (!ci.type %in% c("white", "ma")) stop('`ci.type` must be "white" or "ma"')
+  clim0 <- qnorm((1 + ci)/2) / sqrt(ldata)
+  if (ci.type == "ma") {
+    clim <- clim0 * sqrt(cumsum(c(1, 2 * table$pacf^2)))
+    return(clim[-length(clim)])
+  } else {
+    lineci2 <- rep(clim0, NROW(table$pacf))
+    return(lineci2)
+  }
+}
+
+saveci1 <- get_clim1(table$acf)
+saveci2 <- get_clim2(table$pacf)
+
+lag <- 10
+
+fig1 <- plot_ly(
+  x = table$lag,
+  y = table$acf,
+  type = "bar",
+  name = "acf",
+  color = I("slategray"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(bargap = 0.7,
+         xaxis = list(range = c(1,lag)))
+
+fig1 <- fig1 %>% add_trace(
+  y = saveci1,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig1 <- fig1 %>% add_trace(
+  y = -saveci1,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig2 <- plot_ly(
+  x = table$lag,
+  y = table$pacf,
+  type = "bar",
+  name = "pacf",
+  color = I("dimgrey"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(bargap = 0.7,
+         xaxis = list(range = c(1,lag)))
+
+fig2 <- fig2 %>% add_trace(
+  y = saveci2,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+fig2 <- fig2 %>% add_trace(
+  y = -saveci2,
+  type = 'scatter',
+  mode = 'lines',
+  showlegend = FALSE,
+  cliponaxis = FALSE,
+  line = list(width = 0.8, dash = "dash", color="black")
+)
+
+hline <- function(y = 0, color = "black") {
+  list(type = "line", x0 = 0, x1 = 1, xref = "paper", y0 = y, y1 = y,
+       line = list(color = color, dash = "dash")
+  )
+}
+
+fig3 <- plot_ly(
+  x = table$lag,
+  y = table$Pv_Ljung,
+  type = "scatter",
+  mode = "markers",
+  name = "Pv Ljung Box",
+  color = I("lightslategrey"),
+  cliponaxis = FALSE,
+  showlegend = FALSE
+) %>%
+  layout(shapes = hline(0.05),
+         xaxis = list(range = c(0.5,lag+0.5)))
+
+fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
+  layout(
+    xaxis = list(
+      title = "lags",
+      dtick = 1,
+      tick0 = 1,
+      tickmode = "linear"
+    )
+  )
+
+htmltools::tagList(fig)
+```
+
+
+
 # Final considerations
 
-This tool can be used for time series analysis with an xts class condition; therefore, the user can transform the series to ts if any tool conflicts with an xts series.
+
 
 # References
 
