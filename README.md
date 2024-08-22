@@ -77,3 +77,9 @@ print(result)
 - U.S. Bureau of Economic Analysis, Gross Domestic Product (GDP),
   retrieved from FRED, Federal Reserve Bank of St. Louis;
   <https://fred.stlouisfed.org/series/GDP>.
+- U.S. Bureau of Economic Analysis, Personal Consumption Expenditures
+  (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis;
+  <https://fred.stlouisfed.org/series/PCEC>
+- U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI),
+  retrieved from FRED, Federal Reserve Bank of
+  St. Louis;<https://fred.stlouisfed.org/series/DPI>
