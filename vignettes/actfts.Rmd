@@ -9,6 +9,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<style>
+  body {
+    text-align: justify;
+  }
+</style>
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -22,7 +28,9 @@ library(actfts)
 
 # Motivation
 
+The development of this package addresses the need to consolidate various concepts related to time series analysis, which current R packages approach separately. By integrating these tools into one package, educators can focus on teaching and understanding time series analysis without dealing with fragmented code across multiple resources. This integration provides a more coherent and efficient teaching experience by creating a unified and streamlined environment.
 
+Moreover, this package aims to simplify the process for students by eliminating the complexities of managing scattered code. Students can then concentrate on analyzing data and interpreting results. By easing access to and application of time series analysis techniques, the package helps students gain a deeper, more practical understanding of the concepts without being overwhelmed by the need to navigate multiple tools and syntaxes. This approach enhances the overall quality of teaching and learning in time series analysis.
 
 # Data
 
@@ -480,7 +488,6 @@ print(result)
 # Final considerations
 
 You can analyze time series in xts, ts, integer, and vector (numeric) formats. So, if you use a different format, the `acfinter()` function won't work. In this case, you must convert your data to any format we initially showed you.
-
 
 # References
 
