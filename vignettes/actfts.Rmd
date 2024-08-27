@@ -67,12 +67,16 @@ head(DPI_data)
 
 If you want to use actfts, perform the package installation process using `install.package("actfts")` or through CRAN and load the `library(actfts)` library. Once you install the package, use the `acfinter()` function to obtain the time series analysis. Therefore, we are going to show you the different arguments that `acfinter()` has to analyze time series:
 
-In this first example, you can use the `acfinter()` function to analyze the n lags (in this case, ten lags) of the time series, where you can see a table with five columns with values: lag, ACF, PACF, Box_Pierce, Pv_Box, Ljung_Box and Pv_Ljung, normality analysis, and stationarity analysis—finally, a plot with ACF, PACF, and Pv LJUNG BOX.
+In this example, we will analyze the United States GDP time series. We will use the `acfinter()` function to see the ACF, PACF, Box_Pierce, Pv_Box, Ljung_Box, and Pv_Ljung. We can also see the normality analysis and stationarity analysis. Finally, a plot with ACF, PACF, and Pv LJUNG BOX.
+
+Therefore, we will use the following code to analyze the first ten lags and explain each result of the `acfinter()` function.
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10)
 print(result)
 ```
+
+As you can see, the `result` variable lists three elements: ACF-PACF Test, Stationary Test, and normality test. Concerning the first element, we can see in ACF that every lag is statistically significant, which means that the GDP time series could not be stationary
 
 ```{r echo=FALSE, fig.align='center', message=FALSE, warning=FALSE, , fig.dim=c(7.6, 4)}
 library(dplyr)
