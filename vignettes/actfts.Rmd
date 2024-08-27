@@ -76,8 +76,6 @@ result <- acfinter(GDP_data, lag = 10)
 print(result)
 ```
 
-As you can see, the `result` variable lists three elements: ACF-PACF Test, Stationary Test, and normality test. Concerning the first element, we can see in ACF that every lag is statistically significant, which means that the GDP time series could not be stationary
-
 ```{r echo=FALSE, fig.align='center', message=FALSE, warning=FALSE, , fig.dim=c(7.6, 4)}
 library(dplyr)
 library(plotly)
@@ -206,6 +204,8 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 
 htmltools::tagList(fig)
 ```
+
+As you can see, the `result` variable lists three elements: ACF-PACF Test, Stationary Test, and normality test. Concerning the first element, we can see in ACF that every lag is statistically significant, which means that the GDP time series could not be stationary
 
 Now, the `acfinter()` function allows you to define the type and value of the confidence interval. It would help if you used the `ci.method` and `ci` argument; in the ci.method, you can choose constant confidence intervals with a "white" value or dynamic confidence intervals with a "ma" value. Concerning the ci argument, you can type any value. Here's an example:
 
