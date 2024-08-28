@@ -65,9 +65,9 @@ head(DPI_data)
 
 # Applied Example
 
-If you want to use actfts, perform the package installation process using `install.package("actfts")` or through CRAN and load the `library(actfts)` library. Once you install the package, use the `acfinter()` function to obtain the time series analysis. Therefore, we are going to show you the different arguments that `acfinter()` has to analyze time series:
+## Example one
 
-In this example, we will analyze the United States GDP time series. We will use the `acfinter()` function to see the ACF, PACF, Box_Pierce, Pv_Box, Ljung_Box, and Pv_Ljung. We can also see the normality analysis and stationarity analysis. Finally, a plot with ACF, PACF, and Pv LJUNG BOX.
+In this first example, we will analyze the United States GDP time series. We will use the `acfinter()` function to see the ACF, PACF, Box_Pierce, Pv_Box, Ljung_Box, and Pv_Ljung. We can also see the normality analysis and stationarity analysis. Finally, a plot with ACF, PACF, and Pv LJUNG BOX.
 
 Therefore, we will use the following code to analyze the first ten lags and explain each result of the `acfinter()` function.
 
@@ -205,8 +205,25 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 htmltools::tagList(fig)
 ```
 
-As you can see, the `result` variable lists three elements: ACF-PACF Test, Stationary Test, and normality test. Concerning the first element, we can see in ACF that every lag is statistically significant, which means that the GDP time series could not be stationary
+The `result` variable contains three primary tests: ACF-PACF, Stationary, and Normality. For the ACF-PACF component, we observe significant correlations at multiple lags, suggesting a trend component in the GDP time series. We can also watch this result in the plot.
 
+Regarding the stationary tests, the `acfinter()` function provides ADF, KPSS-Level, KPSS-Trend, and PP results. While each test has nuances, they aim to determine if the series is stationary. Both the ADF and PP tests yield p-values of 0.99. Since these values exceed the significance level (in this case, 0.95), we reject the null hypothesis of stationarity, confirming the presence of a unit root and a trend component in the GDP time series.
+
+On the other hand, we have the KPSS-Level and KPSS-Trend tests. Both the KPSS-Level and KPSS-Trend tests yielded p-values of 0.01. The result indicates that we reject the null hypothesis for both tests, suggesting that the time series is non-stationary, neither at level nor trend.
+
+Concerning the third component, based on the Shapiro-Wilks and Kolmogorov-Smirnov normality tests, we concluded that the time series data does not follow a normal distribution. This is because the results led us to reject the null hypothesis of normality.
+
+Finally, we conducted a Box-Cox transformation test to determine if a transformation was necessary to stabilize the time series variance. Based on the test results, we can apply some of these transformations:
+
+* 1: No transformation.
+* 0: Natural logarithm.
+* 0.5: Square root.
+* 2: Square.
+* -1: Inverse.
+
+The results in both tests are near 0, so the tests show we should apply to natural logarithm transformation.
+
+## Example two
 Now, the `acfinter()` function allows you to define the type and value of the confidence interval. It would help if you used the `ci.method` and `ci` argument; in the ci.method, you can choose constant confidence intervals with a "white" value or dynamic confidence intervals with a "ma" value. Concerning the ci argument, you can type any value. Here's an example:
 
 ```{r}
