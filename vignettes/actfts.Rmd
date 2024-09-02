@@ -365,11 +365,11 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 htmltools::tagList(fig)
 ```
 
-As you can see, the `acfinter()` function adjusts the results based on the specified confidence interval. Additionally, we observe that the plot's confidence intervals are not constant but exhibit dynamic behavior.
+As you can see, the `acfinter()` function with the `ci.method` and `ci` arguments adjust the results based on the specified confidence interval. Additionally, we observe that the plot's confidence intervals are not constant but exhibit dynamic behavior.
 
 # Example 3
 
-You can analyze the time series at its level and at its differences. For this, you can use the delta argument to determine what kind of difference you would like to consider for analysis. Here's an example of the analysis of GDP at its first difference.
+To continue with the United States GPD analysis, we can use the `delta` argument to check the first three differences of the time series. For this case, we will analyze the first difference, so we will use the following code to do it.
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10, delta = "diff1")
@@ -505,6 +505,10 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 htmltools::tagList(fig)
 ```
 
+
+You can see when we use the argument `delta` with a value equal to one. The `acfinter()` function shows all results with the first difference of the time series. So, we will explain the results.
+
+First 
 
 Finally, the `acfinter()` function allows you to view the result interactively. To do this, you need to use the argument interactive and type "acftable" you can view the result in another way.
 
