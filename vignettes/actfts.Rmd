@@ -508,7 +508,11 @@ htmltools::tagList(fig)
 
 You can see when we use the argument `delta` with a value equal to one. The `acfinter()` function shows all results with the first difference of the time series. So, we will explain the results.
 
-First 
+First, 
+
+The results of the stationary test show that the first difference in the GDP time series is stationary. Due to this, we reject the hypothesis in all tests.
+
+The results of the normality test show that the first difference in the GDP time series is not normal because the null hypothesis for both tests is rejected.
 
 Finally, the `acfinter()` function allows you to view the result interactively. To do this, you need to use the argument interactive and type "acftable" you can view the result in another way.
 
