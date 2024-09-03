@@ -367,7 +367,7 @@ htmltools::tagList(fig)
 
 As you can see, the `acfinter()` function with the `ci.method` and `ci` arguments adjust the results based on the specified confidence interval. Additionally, we observe that the plot's confidence intervals are not constant but exhibit dynamic behavior.
 
-# Example 3
+## Example 3
 
 To continue with the United States GPD analysis, we can use the delta argument to check the first three differences of the time series. We will analyze the first difference for this case and use the following code.
 
@@ -516,7 +516,7 @@ On the other hand, the normality test shows that the first difference in the GDP
 
 We must consider this: the Box-Cox test to stabilize the variance only applies to level time series, not the diffs of the time series.
 
-# Example 4
+## Example 4
 
 Finally, the `acfinter()` function lets you view the result interactively. To do this, you need to use the argument interactive and type "acftable". You can dynamically view the result.
 
