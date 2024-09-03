@@ -205,9 +205,9 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 htmltools::tagList(fig)
 ```
 
-The `result` variable contains three primary tests: ACF-PACF, Stationary, and Normality. For the ACF-PACF component, we observe significant correlations at multiple lags, suggesting a trend component in the GDP time series. We can also watch this result in the plot.
+The `result` variable contains three primary tests: ACF-PACF, Stationary, and Normality. For the ACF-PACF component, we observe significant correlations at multiple lags, and the Box Pierce and Ljung Box tests corroborate this finding.
 
-Regarding the stationary tests, the `acfinter()` function provides ADF, KPSS-Level, KPSS-Trend, and PP results. While each test has nuances, they aim to determine if the series is stationary. Both the ADF and PP tests yield p-values of 0.99. Since these values exceed the significance level (in this case, 0.95), we reject the null hypothesis of stationarity, confirming the presence of a unit root and a trend component in the GDP time series.
+Regarding the stationary tests, the `acfinter()` function provides ADF, KPSS-Level, KPSS-Trend, and PP results. While each test has nuances, they aim to determine if the series is stationary. Both the ADF and PP tests yield p-values of 0.99. Since these values exceed the significance level (in this case, 0.95), we don't reject the null hypothesis of stationarity, confirming the presence of a unit root and a trend component in the GDP time series.
 
 On the other hand, we have the KPSS-Level and KPSS-Trend tests. Both the KPSS-Level and KPSS-Trend tests yielded p-values of 0.01. The result indicates that we reject the null hypothesis for both tests, suggesting that the time series is non-stationary, neither at level nor trend.
 
@@ -227,7 +227,7 @@ The results in both tests are near 0, so the tests show we should apply to natur
 
 We've discussed the output of the `acfinter()` function. In the following examples, we'll explore how to use each function argument and provide important considerations for its correct application.
 
-Let's examine the `ci.method` and `ci` arguments. The `ci.method` argument lets us select either constant confidence intervals ("white") or dynamic confidence intervals ("ma"). As for the `ci` argument, you can specify any desired value. 
+Let's examine the `ci.method` and `ci` arguments. The `ci.method` argument lets us select either constant confidence intervals ("white") or dynamic confidence intervals ("ma"). As for the `ci` argument, you can specify any desired value between 0 to 0.99.
 
 If we can use these arguments, we will define to `ci.method` argument ma value whereas `ci` argument we will define a confidence interval of 0.98. So, we can use the following code below:
 
@@ -369,7 +369,7 @@ As you can see, the `acfinter()` function with the `ci.method` and `ci` argument
 
 # Example 3
 
-To continue with the United States GPD analysis, we can use the `delta` argument to check the first three differences of the time series. For this case, we will analyze the first difference, so we will use the following code to do it.
+To continue with the United States GPD analysis, we can use the delta argument to check the first three differences of the time series. We will analyze the first difference for this case and use the following code.
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10, delta = "diff1")
@@ -506,13 +506,17 @@ htmltools::tagList(fig)
 ```
 
 
-You can see when we use the argument `delta` with a value equal to one. The `acfinter()` function shows all results with the first difference of the time series. So, we will explain the results.
+You can see when we use the argument `delta` with a value equal to "diff1" The `acfinter()` function shows all results with the first difference of the time series. So, we will explain the results.
 
-First, 
+First, the ACF-PACF test reveals significant autocorrelation at the 10th lag. Both the Box-Pierce and Ljung-Box tests confirm this finding, and the plot also supports these results.
 
-The results of the stationary test show that the first difference in the GDP time series is stationary. Due to this, we reject the hypothesis in all tests.
+The stationary test shows that the AFD and PP test confirm that the first difference in the GDP time series is stationary, as we reject the null hypothesis. However, the KPSS level and trend show that the first difference in the GDP time series is not stationary.
 
-The results of the normality test show that the first difference in the GDP time series is not normal because the null hypothesis for both tests is rejected.
+On the other hand, the normality test shows that the first difference in the GDP time series is not normally distributed, as both tests reject the null hypothesis.
+
+We must consider this: the Box-Cox test to stabilize the variance only applies to level time series, not the diffs of the time series.
+
+# Example 4
 
 Finally, the `acfinter()` function allows you to view the result interactively. To do this, you need to use the argument interactive and type "acftable" you can view the result in another way.
 
