@@ -508,7 +508,7 @@ htmltools::tagList(fig)
 
 You can see when we use the argument `delta` with a value equal to "diff1" The `acfinter()` function shows all results with the first difference of the time series. So, we will explain the results.
 
-First, the ACF-PACF test reveals significant autocorrelation at the 10th lag. Both the Box-Pierce and Ljung-Box tests confirm this finding, and the plot also supports these results.
+First, the ACF-PACF test reveals significant autocorrelation at the 10th lag. The Box-Pierce and Ljung-Box tests confirm this finding, and the plot supports these results.
 
 The stationary test shows that the AFD and PP test confirm that the first difference in the GDP time series is stationary, as we reject the null hypothesis. However, the KPSS level and trend show that the first difference in the GDP time series is not stationary.
 
@@ -518,9 +518,9 @@ We must consider this: the Box-Cox test to stabilize the variance only applies t
 
 # Example 4
 
-Finally, the `acfinter()` function allows you to view the result interactively. To do this, you need to use the argument interactive and type "acftable" you can view the result in another way.
+Finally, the `acfinter()` function lets you view the result interactively. To do this, you need to use the argument interactive and type "acftable". You can dynamically view the result.
 
-Additionally, you can download the results of a time series analysis. When you type "TRUE" in the download argument, the function downloads an Excel file with the numeric result and a figure in PNG format containing the ACF, PACF, and Pv Ljung Box Plots. Here's an example of the code you need to use it.
+Additionally, you can download the results of a time series analysis by setting the download argument to TRUE. This action will generate an Excel file with the numeric results and a PNG image at 300 dpi resolution, which includes the ACF, PACF, and Pv Ljung-Box plots. The files will be saved in your documents folder. Here is an example of the code to use:
 
 ```{r eval=FALSE, include=FALSE}
 result <- acfinter(GDP_data, lag = 10, interactive = "acftable", download = TRUE)
