@@ -533,9 +533,18 @@ You can analyze time series in xts, ts, integer, and vector (numeric) formats. S
 
 # References
 
+* Glaz, R. (2023). reactable: Interactive Data Tables Based on 'React Table' (R package version 0.4.4) [Software]. Retrieved from https://CRAN.R-project.org/package=reactable
+* Hyndman, R. J., & Khandakar, Y. (2008). forecast: Forecasting Functions for Time Series and Linear Models (R package version 8.15) [Software]. Retrieved from https://CRAN.R-project.org/package=forecast
+* R Core Team. (2023). stats: A package for statistical calculations in R (R package version 4.3.1) [Software]. Retrieved from https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html
+* Ryan, J. A., & Ulrich, J. M. (2020). xts: eXtensible Time Series (R package version 0.12-0) [Software]. Retrieved from https://CRAN.R-project.org/package=xts
+* Sievert, C. (2020). plotly: Create Interactive Web Graphics via 'plotly.js' (R package version 4.9.2.1) [Software]. Retrieved from https://CRAN.R-project.org/package=plotly
+* Trapletti, A., & Hornik, K. (2020). tseries: Time Series Analysis and Computational Finance (R package version 0.10-48) [Software]. Retrieved from https://CRAN.R-project.org/package=tseries
+Walker, A. (2023). openxlsx: Read, Write and Edit xlsx Files (R package version 4.2.5) [Software]. Retrieved from https://CRAN.R-project.org/package=openxlsx
 * U.S. Bureau of Economic Analysis, Gross Domestic Product (GDP), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/GDP.
 * U.S. Bureau of Economic Analysis, Personal Consumption Expenditures (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCEC
 * U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI), retrieved from FRED, Federal Reserve Bank of St. Louis;https://fred.stlouisfed.org/series/DPI
+
+
 
 
 
