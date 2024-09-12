@@ -28,35 +28,35 @@ library(actfts)
 
 # Motivation
 
-The development of this package addresses the need to consolidate various concepts related to time series analysis, which current R packages approach separately. By integrating these tools into one package, educators can focus on teaching and understanding time series analysis without dealing with fragmented code across multiple resources. This integration provides a more coherent and efficient teaching experience by creating a unified and streamlined environment.
+This package consolidates various R time series functions related to econometric and financial analysis, integrating these tools into a single package. Educators and researchers can understand time series analysis without the burden of fragmented code spread across multiple resources, creating coherent and efficient results reading.
 
-Moreover, this package aims to simplify the process for students by eliminating the complexities of managing scattered code. Students can then concentrate on analyzing data and interpreting results. By easing access to and application of time series analysis techniques, the package helps students gain a deeper, more practical understanding of the concepts without being overwhelmed by the need to navigate multiple tools and syntaxes. This approach enhances the overall quality of teaching and learning in time series analysis.
+The package simplifies and manages scattered code in an educational environment, allowing students to focus on data analysis and result interpretation. Moreover, gain a deeper and more practical understanding of the concepts without being overwhelmed by navigating multiple tools and syntaxes.
 
-# Data
+# Demo Data
 
-This package features a three-time series that automatically updates from the FRED database of the United States. These datasets let you practice using the package's functions. Below, we describe each of them:
+This package includes a three-time series that automatically updates from the FRED database of the United States. These datasets allow you to practice using the package’s functions. Below is a brief description of each:
 
-**Gross Domestic Product**, GDP is a comprehensive measure that quantifies the total monetary value of all goods and services produced within a country over a specific period, usually a quarter or a year. It provides a comprehensive overview of a nation's economic activity, reflecting its health and size. Economists often use GDP to compare the economic performance of different countries or regions and assess economic policies' impact.
+**Gross Domestic Product**, This measure quantifies the total monetary value of all goods and services produced within a country over a specific period, typically a quarter or a year. It provides a comprehensive overview of a nation’s economic activity, reflecting its size and economic health. Economists often use GDP to compare economic performance across countries or regions and assess the impact of economic policies.
 
-Here's a practical code that allows you to obtain GDP data.
+Below is a practical code example to retrieve GDP data.
 
 ```{r}
 GDP_data <- actfts::GDPEEUU
 head(GDP_data)
 ```
 
-**Personal Consumption Expenditures** represents the total value of goods and services that households and nonprofit institutions serving households consume within an economy. As a critical component of GDP, PCE reveals consumer behavior and spending patterns. It covers expenditures on durable goods, non-durable goods, and services, offering insights into consumer confidence and living standards.
+**Personal Consumption Expenditures** This represents the total value of goods and services consumed by households and nonprofit institutions serving households within an economy. As a critical component of GDP, PCE reveals consumer behavior and spending patterns. It covers expenditures on durable goods, non durable goods, and services, providing insights into consumer confidence and living standards.
 
-Here's a practical code that allows you to obtain PCE data.
+Below is a handy code that allows you to retrieve PCE data
 
 ```{r}
 PCEC_data <- actfts::PCECEEUU
 head(PCEC_data)
 ```
 
-**Disposable Personal Income** indicates how much money households spend and save after paying taxes and other mandatory charges. It serves as a crucial indicator of consumer purchasing power and financial well-being. DPI directly influences consumer spending and saving decisions, affecting overall economic growth. Analysts often examine DPI to understand trends in personal savings rates and consumption patterns.
+**Disposable Personal Income** refers to the amount of money households have available for spending and saving after deducting taxes and other mandatory charges. It is an indicator of consumer purchasing power and financial health. DPI significantly impacts consumer spending and saving behaviors, affecting overall economic growth. Analysts frequently study DPI to identify trends in personal savings rates and consumption patterns.
 
-Here's a practical code that allows you to obtain DPI data.
+Below is a practical code snippet for obtaining DPI data.
 
 ```{r}
 DPI_data <- actfts::DPIEEUU
@@ -65,7 +65,7 @@ head(DPI_data)
 
 # Previews Concepts :
 
-Before beginning with the examples, defining the concepts that the `acfinter()` function uses to calculate is essential.
+Before beginning with the examples, define the concepts that the "acfinter()" is the function used to calculate essentials
 
 ### ACF (Autocorrelation Function)
 
