@@ -65,7 +65,7 @@ head(DPI_data)
 
 # Previews Concepts :
 
-Before beginning with the examples, define the concepts that the "acfinter()" is the function used to calculate essentials
+Before beginning with the examples, define the concepts that the `acfinter()` is the function used to calculate essentials.
 
 ### ACF (Autocorrelation Function)
 
@@ -101,7 +101,7 @@ The Shapiro-Wilk Test is a statistical test that evaluates the normality of a da
 
 # Applied Example
 
-## Example one
+## Example one: basics testing
 
 In this first example, we will analyze the United States GDP time series. We will use the `acfinter()` function to see the ACF, PACF, Box_Pierce, Pv_Box, Ljung_Box, and Pv_Ljung. We can also see the normality analysis and stationarity analysis. Finally, a plot with ACF, PACF, and Pv LJUNG BOX.
 
@@ -241,15 +241,13 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 htmltools::tagList(fig)
 ```
 
-The `result` variable contains three primary tests: ACF-PACF, Stationary, and Normality. For the ACF-PACF component, we observe significant correlations at multiple lags, and the Box Pierce and Ljung Box tests corroborate this finding.
+The outcome variable encompasses three primary tests: ACF-PACF, Stationarity, and Normality. The ACF-PACF component shows multiple lags significant correlations tested with Box-Pierce and Ljung-Box tests. Regarding stationarity tests, the function `acfinter()` provides ADF, KPSS-Level, KPSS-Trend, and PP results. While each test has nuances, their common aim is to determine if the series is stationary. Both the ADF and PP tests yield p-values of 0.99. Since these values exceed the significance level of 0.95, we do not reject the null hypothesis of stationarity, confirming the presence of a unit root and a trend component in the GDP time series.
 
-Regarding the stationary tests, the `acfinter()` function provides ADF, KPSS-Level, KPSS-Trend, and PP results. While each test has nuances, they aim to determine if the series is stationary. Both the ADF and PP tests yield p-values of 0.99. Since these values exceed the significance level (in this case, 0.95), we don't reject the null hypothesis of stationarity, confirming the presence of a unit root and a trend component in the GDP time series.
+In contrast, the KPSS-Level and KPSS-Trend tests both return p-values of 0.01, indicating the rejection of the null hypothesis in both cases. These tests show a non-stationary time series at any level or trend.
 
-On the other hand, we have the KPSS-Level and KPSS-Trend tests. Both the KPSS-Level and KPSS-Trend tests yielded p-values of 0.01. The result indicates that we reject the null hypothesis for both tests, suggesting that the time series is non-stationary, neither at level nor trend.
+For the third component, the Shapiro-Wilk and Kolmogorov-Smirnov normality tests are used to conclude a non-normal distribution time series. These results lead us to reject the null hypothesis of normality.
 
-Concerning the third component, based on the Shapiro-Wilks and Kolmogorov-Smirnov normality tests, we concluded that the time series data does not follow a normal distribution. This is because the results led us to reject the null hypothesis of normality.
-
-Finally, we conducted a Box-Cox transformation test to determine if a transformation was necessary to stabilize the time series variance. Based on the test results, we can apply some of these transformations:
+Finally, a Box-Cox transformation test determine if a transformation was needed to stabilize the time series variance. Based on the test results, the transformations are:
 
 * 1: No transformation.
 * 0: Natural logarithm.
@@ -259,13 +257,14 @@ Finally, we conducted a Box-Cox transformation test to determine if a transforma
 
 The results in both tests are near 0, so the tests show we should apply to natural logarithm transformation.
 
-## Example two
+## Example two: use the confidence interval
 
-We've discussed the output of the `acfinter()` function. In the following examples, we'll explore how to use each function argument and provide important considerations for its correct application.
+The output of the function `acfinter()` has been discussed. The following examples will explore how to utilize each argument of the function and provide important considerations for its proper application.
 
-Let's examine the `ci.method` and `ci` arguments. The `ci.method` argument lets us select either constant confidence intervals ("white") or dynamic confidence intervals ("ma"). As for the `ci` argument, you can specify any desired value between 0 to 0.99.
+The argument `ci.method` allows for the selection of constant confidence intervals ("white") or dynamic confidence intervals ("ma"). The `ci` argument specifies any desired value between 0 and 0.99.
 
-If we can use these arguments, we will define to `ci.method` argument ma value whereas `ci` argument we will define a confidence interval of 0.98. So, we can use the following code below:
+When utilizing these arguments, one would set the ci.method argument to "ma" and the ci argument to a confidence interval of 0.98. Thus, the following code can be used:
+
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10, ci.method = "ma", ci = 0.98)
@@ -401,11 +400,11 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 htmltools::tagList(fig)
 ```
 
-As you can see, the `acfinter()` function with the `ci.method` and `ci` arguments adjust the results based on the specified confidence interval. Additionally, we observe that the plot's confidence intervals are not constant but exhibit dynamic behavior.
+As illustrated, the function `acfinter()` with the arguments ci.method and ci adjusts the results according to the specified confidence interval. Additionally, it can be observed that the confidence intervals in the plot are not constant but display dynamic behavior.
 
-## Example 3
+## Example 3: Use the differences
 
-To continue with the United States GPD analysis, we can use the delta argument to check the first three differences of the time series. We will analyze the first difference for this case and use the following code.
+Continuing GDP analysis, the "delta" argument can be employed to examine the first three differences in the time series. This analysis will focus on the first difference, and the following code will be utilized.
 
 ```{r}
 result <- acfinter(GDP_data, lag = 10, delta = "diff1")
@@ -542,21 +541,17 @@ htmltools::tagList(fig)
 ```
 
 
-You can see when we use the argument `delta` with a value equal to "diff1" The `acfinter()` function shows all results with the first difference of the time series. So, we will explain the results.
+By setting the argument "delta" to "diff1", the function `acfinter()` will display the first difference of the time series. Firstly, the ACF-PACF test indicates significant autocorrelation at the 10th lag. The Box-Pierce and Ljung-Box tests confirm this finding supported by the plot.
 
-First, the ACF-PACF test reveals significant autocorrelation at the 10th lag. The Box-Pierce and Ljung-Box tests confirm this finding, and the plot supports these results.
+The stationarity tests confirm the first difference in stationarity for the GDP time series; the null hypothesis is rejected. However, the KPSS test results, both at the level and trend, suggest that the first difference of the GDP time series is not stationary.
 
-The stationary test shows that the AFD and PP test confirm that the first difference in the GDP time series is stationary, as we reject the null hypothesis. However, the KPSS level and trend show that the first difference in the GDP time series is not stationary.
+Conversely, the normality test indicates that the first difference of the GDP time series is not normally distributed, as the null hypothesis is rejected in both tests. It should be noted that the Box-Cox test for variance stabilization applies only to level time series and not to their differences.
 
-On the other hand, the normality test shows that the first difference in the GDP time series is not normally distributed, as both tests reject the null hypothesis.
+## Example 4: Interactive mode
 
-We must consider this: the Box-Cox test to stabilize the variance only applies to level time series, not the diffs of the time series.
+Finally, the function `acfinter()` lets users view the results interactively. The interactive argument should be used, and `acftable` should be specified. Additionally, dynamic visualization of the results is possible.
 
-## Example 4
-
-Finally, the `acfinter()` function lets you view the result interactively. To do this, you need to use the argument interactive and type "acftable". You can dynamically view the result.
-
-Additionally, you can download the results of a time series analysis by setting the download argument to TRUE. This action will generate an Excel file with the numeric results and a PNG image at 300 dpi resolution, which includes the ACF, PACF, and Pv Ljung-Box plots. The files will be saved in your documents folder. Here is an example of the code to use:
+Moreover, results from a time series analysis can be downloaded by setting the download argument to TRUE, generating an Excel file containing the numerical results and a PNG image with a resolution of 300 dpi, which includes the ACF, PACF, and Ljung-Box Pv graphs. The files will be saved in the user's Documents folder. Below is an example of the code to use:
 
 ```{r echo=TRUE}
 result <- acfinter(GDP_data, lag = 10, interactive = "acftable", download = TRUE)
