@@ -34,7 +34,7 @@ The package simplifies and manages scattered code in an educational environment,
 
 # Demo Data
 
-This package includes a three-time series that automatically updates from the FRED database of the United States. These datasets allow you to practice using the package’s functions. Below is a brief description of each:
+This package includes a three-time series that automatically updates from the FRED (s.f) database of the United States. These datasets allow you to practice using the package’s functions. Below is a brief description of each:
 
 **Gross Domestic Product**, This measure quantifies the total monetary value of all goods and services produced within a country over a specific period, typically a quarter or a year. It provides a comprehensive overview of a nation’s economic activity, reflecting its size and economic health. Economists often use GDP to compare economic performance across countries or regions and assess the impact of economic policies.
 
