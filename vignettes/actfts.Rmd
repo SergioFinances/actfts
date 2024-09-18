@@ -3,10 +3,13 @@ title: "actfts"
 output:
   rmarkdown::html_vignette:
     self_contained: false
+    toc: true
 vignette: >
   %\VignetteIndexEntry{actfts}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{dplyr, plotly}
   %\VignetteEncoding{UTF-8}
+  %\VignetteTheme{cran}
 ---
 
 <style>
@@ -22,7 +25,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, warning = FALSE, message = FALSE}
+```{r, include = FALSE}
 library(actfts)
 ```
 
@@ -241,6 +244,12 @@ fig <- subplot(fig1, fig2, fig3, nrows = 3, shareX = TRUE, margin = 0.07) %>%
 #htmltools::tagList(fig)
 fig
 ```
+
+```{r echo=FALSE}
+url <- "https://i.ibb.co/cxnhjrJ/EX1.png"
+knitr::include_graphics(url)
+```
+
 The outcome variable encompasses three primary tests: ACF-PACF, Stationarity, and Normality. The ACF-PACF component shows multiple lags significant correlations tested with Box-Pierce and Ljung-Box tests. Regarding stationarity tests, the function `acfinter()` provides ADF, KPSS-Level, KPSS-Trend, and PP results. While each test has nuances, their common aim is to determine if the series is stationary. Both the ADF and PP tests yield p-values of 0.99. Since these values exceed the significance level of 0.95, we do not reject the null hypothesis of stationarity, confirming the presence of a unit root and a trend component in the GDP time series.
 
 In contrast, the KPSS-Level and KPSS-Trend tests both return p-values of 0.01, indicating the rejection of the null hypothesis in both cases. These tests show a non-stationary time series at any level or trend.
