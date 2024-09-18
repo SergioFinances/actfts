@@ -191,7 +191,7 @@ result <- acfinter(GDP_data, lag = 10, interactive = "acftable", download = TRUE
 
 You can analyze time series in xts, ts, integer, and vector (numeric) formats. So, if you use a different format, the `acfinter()` function won't work. In this case, you must convert your data to any format we initially showed you.
 
-Finally, the package that `acfinter()` use for its operation are: xts (Ryan & Ulrich, 2020), tseries (Trapletti & Hornik, 2020), reactable (Glaz, 2023), openxlsx (Walker, 2023), plotly (Sievert, 2020), forecast (Hyndman & Khandakar, 2008) and stats (R Core Team, 2023).
+Finally, the packages that `acfinter()` uses for its operation are: xts (Ryan & Ulrich, 2020), tseries (Trapletti & Hornik, 2020), reactable (Glaz, 2023), openxlsx (Walker, 2023), plotly (Sievert, 2020), forecast (Hyndman & Khandakar, 2008) and stats (R Core Team, 2023).
 
 # References
 
