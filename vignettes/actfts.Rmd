@@ -183,7 +183,7 @@ Finally, the function `acfinter()` lets users view the results interactively. Th
 
 Moreover, results from a time series analysis can be downloaded by setting the download argument to TRUE, generating an Excel file containing the numerical results and a PNG image with a resolution of 300 dpi, which includes the ACF, PACF, and Ljung-Box Pv graphs. The files will be saved in the user's Documents folder. Below is an example of the code to use:
 
-```{r eval=FALSE, include=FALSE}
+```r
 result <- acfinter(GDP_data, lag = 10, interactive = "acftable", download = TRUE)
 ```
 
