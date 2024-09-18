@@ -34,6 +34,7 @@ Depends:
 URL: https://github.com/SergioFinances/actfts
 BugReports: https://github.com/SergioFinances/actfts/issues
 Suggests: 
+    dplyr,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
