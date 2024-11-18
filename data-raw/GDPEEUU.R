@@ -17,10 +17,10 @@ writeBin(httr::content(response, "raw"), temp_file)
 data <- readxl::read_excel(temp_file)
 data <- data[-c(1:10),-1]
 colnames(data) <- "GDP"
-start_date <- as.Date("1947-01-01")
+start_date <- as.Date("1947-03-31")
 end_date <- Sys.Date()
 date <- seq(from = start_date, to = end_date, by = "3 months")
-date <- date[-length(date)]
+date <- date[1:nrow(data)]
 rownames(data) <- date
 data <- cbind(Date = rownames(data), GDP = data$GDP)
 unlink(temp_file)

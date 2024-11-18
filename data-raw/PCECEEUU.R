@@ -10,8 +10,6 @@ library(xts)
 library(httr)
 library(readxl)
 
-conflict_prefer("as.zoo.data.frame", "zoo")
-
 file_url <- "https://fred.stlouisfed.org/graph/fredgraph.xls?bgcolor=%23e1e9f0&chart_type=line&drp=0&fo=open%20sans&graph_bgcolor=%23ffffff&height=450&mode=fred&recession_bars=on&txtcolor=%23444444&ts=12&tts=12&width=1138&nt=0&thu=0&trc=0&show_legend=yes&show_axis_titles=yes&show_tooltip=yes&id=PCEC&scale=left&cosd=1947-01-01&coed=2024-04-01&line_color=%234572a7&link_values=false&line_style=solid&mark_type=none&mw=3&lw=2&ost=-99999&oet=99999&mma=0&fml=a&fq=Quarterly&fam=avg&fgst=lin&fgsnd=2020-02-01&line_index=1&transformation=lin&vintage_date=2024-07-31&revision_date=2024-07-31&nd=1947-01-01"
 response <- httr::GET(file_url)
 temp_file <- tempfile(fileext = ".xls")
@@ -19,10 +17,10 @@ writeBin(httr::content(response, "raw"), temp_file)
 data <- readxl::read_excel(temp_file)
 data <- data[-c(1:10),-1]
 colnames(data) <- "PCEC"
-start_date <- as.Date("1947-01-01")
+start_date <- as.Date("1947-03-31")
 end_date <- Sys.Date()
 date <- seq(from = start_date, to = end_date, by = "3 months")
-date <- date[-length(date)]
+date <- date[1:nrow(data)]
 rownames(data) <- date
 data <- cbind(Date = rownames(data), PCEC = data$PCEC)
 unlink(temp_file)
