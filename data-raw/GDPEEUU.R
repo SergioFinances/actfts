@@ -24,8 +24,9 @@ date <- date[1:nrow(data)]
 rownames(data) <- date
 data <- cbind(Date = rownames(data), GDP = data$GDP)
 unlink(temp_file)
-write.csv(data,"data-raw/GDPEEUU.csv",row.names = FALSE)
+write.csv(data, "data-raw/GDPEEUU.csv", row.names = FALSE)
 df_GDPEEUU <- read.csv("data-raw/GDPEEUU.csv", sep = ",", header = T)
 df_GDPEEUU$Date <- as.Date(df_GDPEEUU$Date)
 GDPEEUU <- xts::xts(df_GDPEEUU$GDP, order.by = df_GDPEEUU$Date)
 colnames(GDPEEUU) <- "GDP"
+
