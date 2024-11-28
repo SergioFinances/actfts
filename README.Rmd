@@ -13,11 +13,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# actfts: Tools for Analysis of Time Series
+# actfts: Autocorrelation Tools Featured for Time Series
 
 <!-- badges: start -->
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The actfts package offers a flexible approach to time series analysis by focusing on Autocorrelation (ACF), Partial Autocorrelation (PACF), and stationarity tests, generating interactive plots for dynamic data visualization. It processes input data by validating and transforming it according to specified differences. It calculates ACF and PACF up to several lags and performs Box-Pierce, Ljung-Box, ADF, KPSS, and PP tests. The function organizes results into tables, with options to save them as TIFF files or Excel spreadsheets, and interactive mode provides on-screen visualization of the ACF-PACF and stationarity test outcomes.
@@ -38,11 +37,11 @@ This is a basic example which shows you how to use actfts packcage:
 ```{r message=FALSE, warning=FALSE}
 library(actfts)
 data <- actfts::GDPEEUU
-result <- actfts::acfinter(data, lag = 15)
+result <- actfts::acfinter(data, lag = 10)
 print(result)
 ```
 
-<img src="man/figures/README-plot_example_1.png">
+<img src="https://i.ibb.co/FnLbh00/Example.png" alt="Example" width="600">
 
 ## References
 

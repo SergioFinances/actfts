@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 library(actfts)
 ```
 
-#actfts: Autocorrelation Tools Featured for Time Series
+# actfts: Autocorrelation Tools Featured for Time Series
 
 # Motivation
 
