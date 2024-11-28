@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  actfts: actfts.html
+last_built: 2024-11-28T23:05Z
+urls:
+  reference: https://sergiofinances.github.io/actfts/reference
+  article: https://sergiofinances.github.io/actfts/articles
