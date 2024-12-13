@@ -7,7 +7,7 @@
 \format{
 A dataset in xts format with one variable and several files that are automatically updated depending on the update of the data's FRED:
 \describe{
-  \item{DPI}{Disposable Personal Income in billions of dollars}
+\item{DPI}{Disposable Personal Income in billions of dollars}
 }
 }
 \source{

@@ -7,7 +7,7 @@
 \format{
 A dataset in xts format with one variable and several files that are automatically updated depending on the update of the data's FRED:
 \describe{
-  \item{GDP}{Gross Domestic product in billions of dollars}
+\item{GDP}{Gross Domestic product in billions of dollars}
 }
 }
 \source{

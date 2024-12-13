@@ -6,6 +6,6 @@
 #' \describe{
 #'   \item{GDP}{Gross Domestic product in billions of dollars}
 #' }
-#' @source \url{https://fred.stlouisfed.org/series/GDP}
+#' @source <https://fred.stlouisfed.org/series/GDP>
 #' @references U.S. Bureau of Economic Analysis, Gross Domestic Product (GDP), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/GDP
 "GDPEEUU"

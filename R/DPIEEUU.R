@@ -6,6 +6,6 @@
 #' \describe{
 #'   \item{DPI}{Disposable Personal Income in billions of dollars}
 #' }
-#' @source \url{https://fred.stlouisfed.org/series/DPI}
+#' @source <https://fred.stlouisfed.org/series/DPI>
 #' @references U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/DPI
 "DPIEEUU"

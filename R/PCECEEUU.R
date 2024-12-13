@@ -6,6 +6,6 @@
 #' \describe{
 #'   \item{PCEC}{Personal Consumption Expenditures in billions of dollars}
 #' }
-#' @source \url{https://fred.stlouisfed.org/series/PCEC}
+#' @source <https://fred.stlouisfed.org/series/PCEC>
 #' @references U.S. Bureau of Economic Analysis, Personal Consumption Expenditures (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCEC
 "PCECEEUU"
