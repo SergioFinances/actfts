@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   actfts: actfts.html
-last_built: 2025-02-20T21:41Z
+last_built: 2025-02-20T21:43Z
 urls:
   reference: https://sergiofinances.github.io/actfts/reference
   article: https://sergiofinances.github.io/actfts/articles
