@@ -1,6 +1,6 @@
 #' ACF and PACF Analysis with Interactive Features
 #'
-#' This function computes and visualizes the ACF and PACF of a given time series,
+#' acfinter computes and visualizes the ACF and PACF of a given time series,
 #' performs stationarity tests, and optionally generates interactive tables and plots.
 #'
 #' @param datag A numeric vector or a time series object.
@@ -27,6 +27,7 @@
 #' @import plotly
 #' @importFrom forecast BoxCox.lambda
 #' @importFrom stats acf pacf Box.test na.omit qnorm is.ts setNames sd shapiro.test
+#' @importFrom graphics par
 #'
 #' @export
 acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactive = NULL,
@@ -320,6 +321,10 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 	} else {
 		print(fig)
 	}
+
+
+	oldpar <- par(no.readonly = TRUE) # code line i
+	on.exit(par(oldpar)) # code line i + 1
 
 	#---------------------------interactive---------------------------------
 	if (is.null(interactive)) {

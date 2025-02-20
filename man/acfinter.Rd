@@ -35,7 +35,7 @@ A list with two elements: "ACF-PACF Test" and "Stationary Test".
 The function also creates interactive plots and tables if specified.
 }
 \description{
-This function computes and visualizes the ACF and PACF of a given time series,
+acfinter computes and visualizes the ACF and PACF of a given time series,
 performs stationarity tests, and optionally generates interactive tables and plots.
 }
 \examples{
