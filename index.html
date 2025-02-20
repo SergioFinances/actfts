@@ -17,8 +17,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Autocorrelation Tools Featured for Time Series">
-<meta name="description" content="This package provides tools for performing autocorrelation analysis of time series data. It includes functions to compute and visualize the autocorrelation function (ACF) and the partial autocorrelation function (PACF). Additionally, it performs the Dickey-Fuller, KPSS and Phillips–Perron unit root tests to assess the stationarity of time series.">
-<meta property="og:description" content="This package provides tools for performing autocorrelation analysis of time series data. It includes functions to compute and visualize the autocorrelation function (ACF) and the partial autocorrelation function (PACF). Additionally, it performs the Dickey-Fuller, KPSS and Phillips–Perron unit root tests to assess the stationarity of time series.">
+<meta name="description" content="The actfts package provides tools for performing autocorrelation analysis of time series data. It includes functions to compute and visualize the autocorrelation function (ACF) and the partial autocorrelation function (PACF). Additionally, it performs the Dickey-Fuller, KPSS, and Phillips-Perron unit root tests to assess the stationarity of time series. Theoretical foundations are based on Box and Cox (1964) &lt;doi:10.1111/j.2517-6161.1964.tb00553.x&gt;, Box and Jenkins (1976) &lt;isbn:978-0-8162-1234-2&gt;, and Box and Pierce (1970) &lt;doi:10.1080/01621459.1970.10481180&gt;. Statistical methods are also drawn from Kolmogorov (1933) &lt;doi:10.1007/BF00993594&gt;, Kwiatkowski et al. (1992) &lt;doi:10.1016/0304-4076(92)90104-Y&gt;, and Ljung and Box (1978) &lt;doi:10.1093/biomet/65.2.297&gt;. The package integrates functions from forecast (Hyndman &amp; Khandakar, 2008) &lt;https://CRAN.R-project.org/package=forecast&gt;, tseries (Trapletti &amp; Hornik, 2020) &lt;https://CRAN.R-project.org/package=tseries&gt;, xts (Ryan &amp; Ulrich, 2020) &lt;https://CRAN.R-project.org/package=xts&gt;, and stats (R Core Team, 2023) &lt;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html&gt;. Additionally, it provides visualization tools via plotly (Sievert, 2020) &lt;https://CRAN.R-project.org/package=plotly&gt; and reactable (Glaz, 2023) &lt;https://CRAN.R-project.org/package=reactable&gt;. The package also incorporates macroeconomic datasets from the U.S. Bureau of Economic Analysis: Disposable Personal Income (DPI) &lt;https://fred.stlouisfed.org/series/DPI&gt;, Gross Domestic Product (GDP) &lt;https://fred.stlouisfed.org/series/GDP&gt;, and Personal Consumption Expenditures (PCEC) &lt;https://fred.stlouisfed.org/series/PCEC&gt;.">
+<meta property="og:description" content="The actfts package provides tools for performing autocorrelation analysis of time series data. It includes functions to compute and visualize the autocorrelation function (ACF) and the partial autocorrelation function (PACF). Additionally, it performs the Dickey-Fuller, KPSS, and Phillips-Perron unit root tests to assess the stationarity of time series. Theoretical foundations are based on Box and Cox (1964) &lt;doi:10.1111/j.2517-6161.1964.tb00553.x&gt;, Box and Jenkins (1976) &lt;isbn:978-0-8162-1234-2&gt;, and Box and Pierce (1970) &lt;doi:10.1080/01621459.1970.10481180&gt;. Statistical methods are also drawn from Kolmogorov (1933) &lt;doi:10.1007/BF00993594&gt;, Kwiatkowski et al. (1992) &lt;doi:10.1016/0304-4076(92)90104-Y&gt;, and Ljung and Box (1978) &lt;doi:10.1093/biomet/65.2.297&gt;. The package integrates functions from forecast (Hyndman &amp; Khandakar, 2008) &lt;https://CRAN.R-project.org/package=forecast&gt;, tseries (Trapletti &amp; Hornik, 2020) &lt;https://CRAN.R-project.org/package=tseries&gt;, xts (Ryan &amp; Ulrich, 2020) &lt;https://CRAN.R-project.org/package=xts&gt;, and stats (R Core Team, 2023) &lt;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html&gt;. Additionally, it provides visualization tools via plotly (Sievert, 2020) &lt;https://CRAN.R-project.org/package=plotly&gt; and reactable (Glaz, 2023) &lt;https://CRAN.R-project.org/package=reactable&gt;. The package also incorporates macroeconomic datasets from the U.S. Bureau of Economic Analysis: Disposable Personal Income (DPI) &lt;https://fred.stlouisfed.org/series/DPI&gt;, Gross Domestic Product (GDP) &lt;https://fred.stlouisfed.org/series/GDP&gt;, and Personal Consumption Expenditures (PCEC) &lt;https://fred.stlouisfed.org/series/PCEC&gt;.">
 <meta property="og:image" content="https://sergiofinances.github.io/actfts/logo.png">
 </head>
 <body>
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">actfts</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="articles/actfts.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -111,10 +112,8 @@
 </h2>
 <ul>
 <li>U.S. Bureau of Economic Analysis, Gross Domestic Product (GDP), retrieved from FRED, Federal Reserve Bank of St. Louis; <a href="https://fred.stlouisfed.org/series/GDP" class="external-link uri">https://fred.stlouisfed.org/series/GDP</a>.</li>
-<li>U.S. Bureau of Economic Analysis, Personal Consumption Expenditures (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis; <a href="https://fred.stlouisfed.org/series/PCEC" class="external-link uri">https://fred.stlouisfed.org/series/PCEC</a>
-</li>
-<li>U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI), retrieved from FRED, Federal Reserve Bank of St. Louis;<a href="https://fred.stlouisfed.org/series/DPI" class="external-link uri">https://fred.stlouisfed.org/series/DPI</a>
-</li>
+<li>U.S. Bureau of Economic Analysis, Personal Consumption Expenditures (PCEC), retrieved from FRED, Federal Reserve Bank of St. Louis; <a href="https://fred.stlouisfed.org/series/PCEC" class="external-link uri">https://fred.stlouisfed.org/series/PCEC</a>.</li>
+<li>U.S. Bureau of Economic Analysis, Disposable Personal Income (DPI), retrieved from FRED, Federal Reserve Bank of St. Louis;<a href="https://fred.stlouisfed.org/series/DPI" class="external-link uri">https://fred.stlouisfed.org/series/DPI</a>.</li>
 </ul>
 </div>
 </div>
