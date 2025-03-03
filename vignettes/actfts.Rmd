@@ -38,7 +38,7 @@ The actfts package simplifies and manages scattered code in an educational envir
 
 # Demo Data
 
-The actfts package includes a three-time series that automatically updates from the FRED (s.f) database of the United States. These datasets allow you to practice using the package’s functions. Below is a brief description of each:
+The actfts package provides three time series datasets that are automatically updated from the FRED (Federal Reserve Economic Data) database in the United States. These datasets are designed to help you practice using the package's functions. Below is a brief overview of each:
 
 **Gross Domestic Product**, This measure quantifies the total monetary value of all goods and services produced within a country over a specific period, typically a quarter or a year. It provides a comprehensive overview of a nation’s economic activity, reflecting its size and economic health. Economists often use GDP to compare economic performance across countries or regions and assess the impact of economic policies.
 
