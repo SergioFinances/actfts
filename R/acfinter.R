@@ -33,6 +33,9 @@
 acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactive = NULL,
 				 delta = "levels", download = FALSE){
 
+	oldpar <- par(no.readonly = TRUE)
+	on.exit(par(oldpar))
+
 	# Init
 	gen <- function(datag, delta = "levels") {
 		if (!is.numeric(datag) && !is.ts(datag) && !is.xts(datag)) {
@@ -253,8 +256,6 @@ acfinter <- function(datag, lag = 72, ci.method = "white", ci = 0.95, interactiv
 		dpi = 300
 		grDevices::tiff("acfpacf.tif", width = 6 * dpi, height = 5 * dpi, res = dpi)
 		graphics::par(mfrow = c(3, 1), bty = "n", mar = c(4, 3, 3, 2), xpd = FALSE)
-		oldpar <- par(no.readonly = TRUE)
-		on.exit(par(oldpar))
 
 		if (max(table$acf) <= 0.6) {
 			bp1 <- graphics::barplot(table$acf, ylim = c(-max(saveci1) - 0.05, max(saveci1) + 0.05),
