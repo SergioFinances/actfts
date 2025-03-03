@@ -32,13 +32,13 @@ library(actfts)
 
 # Motivation
 
-This package consolidates various R time series functions related to econometric and financial analysis, integrating these tools into a single package. Educators and researchers can understand time series analysis without the burden of fragmented code spread across multiple resources, creating coherent and efficient results reading.
+The actfts package consolidates various R time series functions related to econometric and financial analysis, integrating these tools into a single package. Educators and researchers can understand time series analysis without the burden of fragmented code spread across multiple resources, creating coherent and efficient results reading.
 
 The package simplifies and manages scattered code in an educational environment, allowing students to focus on data analysis and result interpretation. Moreover, gain a deeper and more practical understanding of the concepts without being overwhelmed by navigating multiple tools and syntaxes.
 
 # Demo Data
 
-This package includes a three-time series that automatically updates from the FRED (s.f) database of the United States. These datasets allow you to practice using the package’s functions. Below is a brief description of each:
+The actfts package includes a three-time series that automatically updates from the FRED (s.f) database of the United States. These datasets allow you to practice using the package’s functions. Below is a brief description of each:
 
 **Gross Domestic Product**, This measure quantifies the total monetary value of all goods and services produced within a country over a specific period, typically a quarter or a year. It provides a comprehensive overview of a nation’s economic activity, reflecting its size and economic health. Economists often use GDP to compare economic performance across countries or regions and assess the impact of economic policies.
 
